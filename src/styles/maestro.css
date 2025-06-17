@@ -1,0 +1,118 @@
+/* Reset general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f3f4f6;
+}
+
+/* Contenedor principal */
+.dashboard-maestro {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar-maestro {
+    width: 250px;
+    background-color: #0ca73f;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar-maestro h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar-maestro ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-maestro li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sidebar-maestro li:hover {
+    background-color: #3b82f6;
+}
+
+.sidebar-maestro .logout {
+    color: #fca5a5;
+}
+
+/* Contenido principal */
+.contenido-maestro {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background-color: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contenido-maestro h1 {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.contenido-maestro p {
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-maestro {
+        flex-direction: column;
+    }
+
+    .sidebar-maestro {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-maestro h2 {
+        display: none;
+    }
+
+    .sidebar-maestro ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .sidebar-maestro li {
+        margin: 5px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .contenido-maestro {
+        padding: 20px;
+    }
+}

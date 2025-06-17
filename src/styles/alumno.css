@@ -1,0 +1,118 @@
+/* Reset general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f3f4f6;
+}
+
+/* Contenedor principal */
+.dashboard-alumno {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar-alumno {
+    width: 250px;
+    background-color: #1e3a8a;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar-alumno h2 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar-alumno ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-alumno li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.sidebar-alumno li:hover {
+    background-color: #3b82f6;
+}
+
+.sidebar-alumno .logout {
+    color: #fca5a5;
+}
+
+/* Contenido principal */
+.contenido-alumno {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    background-color: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contenido-alumno h1 {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.contenido-alumno p {
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-alumno {
+        flex-direction: column;
+    }
+
+    .sidebar-alumno {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar-alumno h2 {
+        display: none;
+    }
+
+    .sidebar-alumno ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .sidebar-alumno li {
+        margin: 5px;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    .contenido-alumno {
+        padding: 20px;
+    }
+}
