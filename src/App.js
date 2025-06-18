@@ -1,13 +1,19 @@
 import React from "react";
 import Login from "./components/login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+//Admin
 import Admi from "./admi/dashboardAdmi";
-import Maestro from "./maestro/dashboardMestros";
+import Usuarios from "./admi/usuarios";
+
+//Maestro
+import Maestro from "./maestro/dashboardMaestros";
+import PerfilMaestro from "./maestro/perfilMaestro";
+import CalendarioMaestro from "./maestro/calendarioMaestro";
+
+//Alumno
 import Alumno from "./alumno/dashboardAlumno";
 import PerfilAlumno from "./alumno/perfilAlumno";
 import Historial from "./alumno/historialAlumno";
-import Usuarios from "./admi/usuarios";
-
 
 function App() {
   return (
@@ -21,6 +27,8 @@ function App() {
        <Route path="/historialAlumno" element={<Historial/>}/>
        <Route path="/usuarios" element={<Usuarios/>}/>
 
+       <Route path="/perfilMaestro" element={<PerfilMaestro/>}/>
+       <Route path="/calendarioMaestro" element={<CalendarioMaestro/>}/>
       </Routes>
     </Router>
   );

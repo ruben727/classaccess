@@ -1,5 +1,7 @@
 import React, { useEffect, useState }from "react";
 import '../styles/maestro.css'
+import { useNavigate } from "react-router-dom";
+import MenuMaestro from "./menuMaestro";
 
 
 const Maestro = () => {
@@ -17,24 +19,9 @@ const Maestro = () => {
     }
   }, []);
 
-  const cerrarSesion = () => {
-    localStorage.removeItem("usuario");
-    window.location.href = "/";
-  };
-
     return (
         <div className="dashboard-maestro">
-            <aside className="sidebar-maestro">
-                <h2>Maestro</h2>
-                <ul>
-                    <li>Perfil</li>
-                    <li>Materias</li>
-                    <li>Calificaciones</li>
-                    <li>Horario</li>
-                    <li>Historial</li>
-                    <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>
-                </ul>
-            </aside>
+            <MenuMaestro></MenuMaestro>
             <main className="contenido-maestro">
                 <h1>Bienvenido, {nombre} </h1>
                 <p>Selecciona una opción del menú para comenzar.</p>
