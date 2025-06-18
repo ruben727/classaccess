@@ -27,6 +27,8 @@ const Login = () => {
       
       const tipoUsuario = data.user.priv_usu;
 
+        localStorage.setItem("usuario", JSON.stringify(data.user));
+
       if (tipoUsuario == 1){
         navigate("/alumno");
       }

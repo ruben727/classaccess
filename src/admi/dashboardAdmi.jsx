@@ -1,29 +1,46 @@
-import React from "react";
+import React, {useEffect, useState}from "react";
 import "../styles/administrador.css"
 import { useNavigate } from "react-router-dom";
+import MenuAdmin from "./menuAdmi";
+
+
+const Admi = () => {
+  const [nombre, setNombre] = useState("");
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+
+    if (usuarioGuardado) {
+      setNombre(usuarioGuardado.nombre_usu); 
+    } else {
+   
+      window.location.href = "/";
+    }
+  }, []);
+
+  const irUsuarios = () =>{
+    navigate("/usuarios");
+
+  }
+
+  const cerrarSesion = () => {
+    localStorage.removeItem("usuario");
+    window.location.href = "/";
+  };
 
 
 
-const Maestro = () => {
     return (
         <div className="dashboard-administrador">
-            <aside className="sidebar-administrador">
-                <h2>Administrador</h2>
-                <ul>
-                    <li>Perfil</li>
-                    <li>Usuarios</li>
-                    <li>Asistencias</li>
-                    <li>Generar reportes</li>
-                    <li>Enviar notificaciones</li>
-                    <li className="logout">Cerrar sesión</li>
-                </ul>
-            </aside>
+   <MenuAdmin></MenuAdmin>
             <main className="contenido-administrador">
-                <h1>Bienvenido, Administrador </h1>
+                <h1>Bienvenido, {nombre} </h1>
                 <p>Selecciona una opción del menú para comenzar.</p>
             </main>
         </div>
     );
 };
 
-export default Maestro;
+export default Admi;
