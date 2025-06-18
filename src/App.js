@@ -7,6 +7,7 @@ import Alumno from "./alumno/dashboardAlumno";
 import PerfilAlumno from "./alumno/perfilAlumno";
 import Historial from "./alumno/historialAlumno";
 import Usuarios from "./admi/usuarios";
+import RegistrarUsuario from "./admi/registrarUsuario";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
        <Route path="/perfilAlumno" element={<PerfilAlumno/>}/>
        <Route path="/historialAlumno" element={<Historial/>}/>
        <Route path="/usuarios" element={<Usuarios/>}/>
+       <Route path="/registro" element={<RegistrarUsuario/>}/>
 
       </Routes>
     </Router>
