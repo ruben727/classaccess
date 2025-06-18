@@ -3,6 +3,7 @@ import "../styles/administrador.css";
 import "../styles/usuarios.css";
 import { useNavigate } from "react-router-dom";
 import MenuAdmin from "./menuAdmi";
+import RegistrarUsuario from "./registrarUsuario";
 
 const Usuarios = () => {
   const [maestros, setMaestros] = useState([]);
@@ -47,10 +48,10 @@ const Usuarios = () => {
     <MenuAdmin></MenuAdmin>
    
       <main className="contenido-administrador">
-         <br /><br /><br /><br />
-        <h1>Gestión de Usuarios</h1>
-
-        <button onClick={() => navigate("/agregarUsuario")} className="btn-agregar">Agregar Usuario</button>
+         
+        <h1 className="titulo-usuarios">Gestión de Usuarios</h1>
+      <br /><br />
+        <button onClick={() => navigate("/registro")} className="btn-agregar">Agregar Usuario</button>
 
         <section>
           <h2>Maestros</h2>
@@ -65,10 +66,10 @@ const Usuarios = () => {
                 <tr key={m.id_usu}>
                   <td>{m.nombre_usu} {m.ap_usu} {m.am_usu}</td>
                   <td>{m.correo_usu}</td>
-                  <td>{m.estatus_usu === 1 ? "Inactivo" : "Activo"}</td>
+                  <td>{m.estatus_usu === 0 ? "Inactivo" : "Activo"}</td>
                   <td>
                     <button onClick={() => cambiarEstatus(m.id_usu, m.estatus_usu === 1 ? 0 : 1)}>
-                      {m.estatus_usu === 1 ?  "Activar" :"Dar de baja" }
+                      {m.estatus_usu === 1 ?  "Dar de baja" : "Activar" }
                     </button>
                   </td>
                 </tr>
@@ -90,10 +91,10 @@ const Usuarios = () => {
                 <tr key={a.id_usu}>
                   <td>{a.nombre_usu} {a.ap_usu} {a.am_usu}</td>
                   <td>{a.correo_usu}</td>
-                  <td>{a.estatus_usu === 1 ? "Inactivo" : "Activo"}</td>
+                  <td>{a.estatus_usu === 0 ? "Inactivo" : "Activo"}</td>
                   <td>
                     <button onClick={() => cambiarEstatus(a.id_usu, a.estatus_usu === 1 ? 0 : 1)}>
-                      {a.estatus_usu === 1 ? "Activar" : "Dar de baja"}
+                      {a.estatus_usu === 1 ? "Dar de baja" : "Activar"}
                     </button>
                   </td>
                 </tr>
@@ -115,7 +116,7 @@ const Usuarios = () => {
                 <tr key={ad.id_usu}>
                   <td>{ad.nombre_usu} {ad.ap_usu} {ad.am_usu}</td>
                   <td>{ad.correo_usu}</td>
-                  <td>{ad.estatus_usu === 1 ? "Inactivo" : "Activo"}</td>
+                  <td>{ad.estatus_usu === 1 ? "Activo" : "Inactivo"}</td>
                 </tr>
               ))}
             </tbody>
