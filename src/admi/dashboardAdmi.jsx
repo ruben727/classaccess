@@ -22,7 +22,6 @@ const Admi = () => {
 
   const irUsuarios = () =>{
     navigate("/usuarios");
-
   }
 
   const cerrarSesion = () => {
