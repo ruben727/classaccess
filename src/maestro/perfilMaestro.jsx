@@ -25,7 +25,7 @@ const PerfilMaestro = () => {
       <div className="tarjeta-perfil">
         <p><strong>Nombre:</strong> {maestro.nombre_usu} {maestro.ap_usu} {maestro.am_usu}</p>
         <p><strong>Correo:</strong> {maestro.correo_usu}</p>
-        <p><strong>Privilegio:</strong> Alumno</p>
+        <p><strong>Privilegio:</strong> Maestro</p>
         <p><strong>Estatus:</strong> {maestro.estatus_usu === 1 ? "Activo" : "Inactivo"}</p>
       </div>
     </div>
