@@ -12,6 +12,7 @@ const RegistrarUsuario = () => {
     priv: "1",
     matricula: "",
     cod_rfid: "",
+    grupo: "",
     no_empleado: ""
   });
 
@@ -67,6 +68,7 @@ const RegistrarUsuario = () => {
             <>
               <input type="text" name="matricula" placeholder="Matrícula" onChange={handleChange} required />
               <input type="text" name="cod_rfid" placeholder="Código RFID" onChange={handleChange} required />
+              <input type="text" name="grupo" placeholder="Grupo" onChange={handleChange} required/>
             </>
           )}
 

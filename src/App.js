@@ -6,11 +6,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Admi from "./admi/dashboardAdmi";
 import Usuarios from "./admi/usuarios";
 import RegistrarUsuario from "./admi/registrarUsuario";
+import PerfilAdmin from "./admi/perfilAdmi";
+import Asistencias from "./admi/asistencias";
+import EnviarNotificaciones from "./admi/enviarNotificaciones";
 
 // Maestro
 import Maestro from "./maestro/dashboardMaestros";
 import PerfilMaestro from "./maestro/perfilMaestro";
 import CalendarioMaestro from "./maestro/calendarioMaestro";
+
 
 // Alumno
 import Alumno from "./alumno/dashboardAlumno";
@@ -31,6 +35,11 @@ function App() {
         <Route path="/registro" element={<RegistrarUsuario />} />
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
+        <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
+        <Route path="/asistencias" element={<Asistencias/>}/>
+        <Route path="/enviarNotificaciones" element={<EnviarNotificaciones/>}/>
+
+        
       </Routes>
     </Router>
   );
