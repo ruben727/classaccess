@@ -25,6 +25,9 @@ const irPerfil = () => {
 const irHistorial = () => {
     navigate("/historialAlumno")
 }
+const irQr = ()=>{
+  navigate("/CodigoQR")
+}
 
   const cerrarSesion = () => {
     localStorage.removeItem("usuario");
@@ -38,6 +41,7 @@ const irHistorial = () => {
         <ul>
           <li>Inicio</li>
           <li onClick={irPerfil}>Perfil</li>
+          <li onClick={irQr}>Codigo Qr</li>
           <li>Clases</li>
           <li>Calendario escolar</li>
           <li onClick={irHistorial}>Historial</li>

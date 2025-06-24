@@ -23,7 +23,9 @@ const PerfilAlumno = () => {
     localStorage.removeItem("usuario");
     window.location.href = "/";
   };
-
+  const irQr = ()=>{
+  navigate("/CodigoQR")
+}
   if (!usuario) return <p>Cargando...</p>;
 
   return (
@@ -33,6 +35,7 @@ const PerfilAlumno = () => {
         <ul>
           <li onClick={() => navigate("/alumno")}>Inicio</li>
           <li onClick={irPerfil}>Perfil</li>
+          <li onClick={irQr}>Codigo Qr</li>
           <li>Clases</li>
           <li>Calendario escolar</li>
           <li>Historial</li>

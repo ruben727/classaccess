@@ -28,6 +28,9 @@ const MenuMaestro = () => {
     localStorage.removeItem("usuario");
     window.location.href = "/";
   };
+  const irQr = () => {
+    navigate("/Codigo_QR");
+  }
 
     return (
             <aside className="sidebar-maestro">
@@ -35,6 +38,7 @@ const MenuMaestro = () => {
                 <ul>
                     <li onClick={irInicio}>Inicio</li>
                     <li onClick={irPerfil}>Perfil</li>
+                    <li onClick={irQr}>Codigo QR</li>
                     <li onClick={irHorario}>Horario</li>
                     <li onClick={irCalendario}>Calendario</li>
                     <li onClick={irHistorial}>Historial</li>

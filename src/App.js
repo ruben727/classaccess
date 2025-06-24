@@ -11,11 +11,13 @@ import RegistrarUsuario from "./admi/registrarUsuario";
 import Maestro from "./maestro/dashboardMaestros";
 import PerfilMaestro from "./maestro/perfilMaestro";
 import CalendarioMaestro from "./maestro/calendarioMaestro";
+import Codigo_QR from "./maestro/Codigo_QR";
 
 // Alumno
 import Alumno from "./alumno/dashboardAlumno";
 import PerfilAlumno from "./alumno/perfilAlumno";
 import Historial from "./alumno/historialAlumno";
+import CodigoQr from "./alumno/CodigoQr";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
         <Route path="/registro" element={<RegistrarUsuario />} />
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
+        <Route path="/CodigoQr" element={<CodigoQr/>}></Route>
+        <Route path="/Codigo_QR" element={<Codigo_QR/>}/>
       </Routes>
     </Router>
   );
