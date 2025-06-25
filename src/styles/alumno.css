@@ -22,33 +22,38 @@ html, body {
 }
 
 /* Sidebar */
+/* Sidebar */
 .sidebar-alumno {
     width: 250px;
+    height: 100vh;
     background-color: #1e3a8a;
     color: white;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    padding: 40px 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-alumno h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    font-size: 2rem;
+    margin-bottom: 40px;
     text-align: center;
+    font-weight: bold;
 }
 
 .sidebar-alumno ul {
     list-style: none;
     padding: 0;
+    flex-grow: 1;
 }
 
 .sidebar-alumno li {
-    margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
 }
 
 .sidebar-alumno li:hover {
@@ -56,8 +61,17 @@ html, body {
 }
 
 .sidebar-alumno .logout {
+    margin-top: auto;
     color: #fca5a5;
+    padding: 10px 15px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
+
+.sidebar-alumno .logout:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 
 /* Contenido principal */
 .contenido-alumno {
@@ -136,4 +150,52 @@ html, body {
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+.historial-contenido {
+  flex: 1;
+  padding: 40px;
+  background-color: #f5f6f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo {
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  color: black;
+  font-weight: bold;
+
+}
+
+.tabla-historial {
+  width: 90%;
+  max-width: 900px;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.tabla-historial th {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+}
+
+.tabla-historial td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+}
+
+.tabla-historial tr:nth-child(even) {
+  background-color: #f0f4ff;
+}
+
+.tabla-historial tr:last-child td {
+  border-bottom: none;
 }
