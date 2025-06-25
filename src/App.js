@@ -7,8 +7,11 @@ import Admi from "./admi/dashboardAdmi";
 import Usuarios from "./admi/usuarios";
 import RegistrarUsuario from "./admi/registrarUsuario";
 import PerfilAdmin from "./admi/perfilAdmi";
-import Asistencias from "./admi/asistencias";
 import EnviarNotificaciones from "./admi/enviarNotificaciones";
+import Reportes from "./admi/reportes";
+import Dispositivos from "./admi/dispositivos";
+import Aulas from "./admi/aulas";
+import Asistencias from "./admi/asistencias";
 
 // Maestro
 import Maestro from "./maestro/dashboardMaestros";
@@ -22,7 +25,7 @@ import Alumno from "./alumno/dashboardAlumno";
 import PerfilAlumno from "./alumno/perfilAlumno";
 import Historial from "./alumno/historialAlumno";
 import CodigoQr from "./alumno/CodigoQr";
-import Reportes from "./admi/reportes";
+
 
 function App() {
   return (
@@ -39,13 +42,17 @@ function App() {
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
 
-       <Route path="/codigo_Qr" element={<Codigo_QR/>} />
+        <Route path="/codigo_Qr" element={<Codigo_QR/>} />
         <Route path="/CodigoQR" element={<CodigoQr />} />
 
         <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
         <Route path="/reportes" element={<Reportes/>}/>
-        <Route path="/asistencias" element={<Asistencias/>} />
         <Route path="/enviarNotificaciones" element={<EnviarNotificaciones/>} />
+
+        <Route path="/dispositivos" element={<Dispositivos/>}/>
+        <Route path="/aulas" element={<Aulas/>}/>
+        <Route path="/asistencias" element={<Asistencias/>}/>
+      
 
       </Routes>
     </Router>
