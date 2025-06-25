@@ -23,6 +23,7 @@ import Historial from "./alumno/historialAlumno";
 import CodigoQr from "./alumno/CodigoQr";
 import MenuAlumno from "./alumno/menuAlumno";
 import Calendario from "./alumno/Calendario";
+import Reportes from "./admi/reportes";
 
 function App() {
   return (
@@ -51,6 +52,14 @@ function App() {
         <Route path="/perfilAdmin" element={<PerfilAdmin />} />
         <Route path="/asistencias" element={<Asistencias />} />
         <Route path="/notificaciones" element={<EnviarNotificaciones />} />
+       <Route path="/codigo_Qr" element={<Codigo_QR/>} />
+        <Route path="/CodigoQR" element={<CodigoQr />} />
+
+        <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
+        <Route path="/reportes" element={<Reportes/>}/>
+        <Route path="/asistencias" element={<Asistencias/>} />
+        <Route path="/enviarNotificaciones" element={<EnviarNotificaciones/>} />
+
       </Routes>
     </Router>
   );
