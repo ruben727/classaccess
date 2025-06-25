@@ -28,6 +28,14 @@ const MenuAdmin = () => {
     navigate("/reportes")
   }
 
+  const irAulas = () => {
+    navigate("/aulas")
+  }
+
+  const irDispositivos = () =>{
+    navigate("/dispositivos");
+  }
+
   const cerrarSesion = () => {
     localStorage.removeItem("usuario");
     navigate("/");
@@ -42,6 +50,8 @@ const MenuAdmin = () => {
                     <li onClick={irPerfil}>Perfil</li>
                     <li onClick={irUsuarios}>Usuarios</li>
                     <li onClick={irAsistencias}>Asistencias</li>
+                    <li onClick={irDispositivos}>Dispositivos</li>
+                    <li onClick={irAulas}>Aulas</li>
                     <li onClick={irReportes}>Generar reportes</li>
                     <li onClick={irEnviarNotificacioens}>Enviar notificaciones</li>
                     <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>

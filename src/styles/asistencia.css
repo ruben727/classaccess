@@ -1,0 +1,53 @@
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filtros input,
+.filtros select {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  flex: 1 1 180px;
+  min-width: 180px;
+  transition: border-color 0.3s ease;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn-filtrar,
+.btn-limpiar {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-filtrar {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-filtrar:hover {
+  background-color: #0056b3;
+}
+
+.btn-limpiar {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-limpiar:hover {
+  background-color: #5a6268;
+}
