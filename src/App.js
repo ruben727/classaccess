@@ -24,6 +24,7 @@ import CodigoQr from "./alumno/CodigoQr";
 import MenuAlumno from "./alumno/menuAlumno";
 import Calendario from "./alumno/Calendario";
 import Reportes from "./admi/reportes";
+import Notificationes from "./alumno/Notificaciones_alumno";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/CodigoQR" element={<CodigoQr />} />
         <Route path="/menuAlumno" element= {<MenuAlumno/>}></Route>
         <Route path="/Calendario" element = {<Calendario/>}></Route>
+        <Route path = "/Notificaciones_alumno"element = {<Notificationes/>}></Route>
 
         {/* Rutas maestro */}
         <Route path="/maestro" element={<Maestro />} />

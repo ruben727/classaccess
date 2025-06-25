@@ -10,8 +10,13 @@ const Codigo = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const id_usu = localStorage.getItem("id_usu");
-    if (!id_usu) return navigate("/");
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const id_usu = usuario?.id_usu;
+
+    if (!id_usu) {
+      console.error("ID de usuario no encontrado en localStorage");
+      return navigate("/");
+    }
 
     axios
       .get(`http://localhost:3001/api/alumno/${id_usu}`)
@@ -23,8 +28,13 @@ const Codigo = () => {
       });
   }, [navigate]);
 
-  if (!alumno)
-    return <p style={{ textAlign: "center" }}>Cargando QR...</p>;
+  if (!alumno) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <p>Cargando información del alumno...</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
@@ -52,7 +62,7 @@ const Codigo = () => {
           }}
         >
           <h3 style={{ fontSize: "1.2rem", marginBottom: 10 }}>
-           <p>Nombre:  {alumno.nombre_usu} {alumno.ap_usu} </p>
+            <p>Nombre: {alumno.nombre_usu} {alumno.ap_usu}</p>
           </h3>
           <p>Matrícula: {alumno.matricula}</p>
           <div style={{ width: "100%", maxWidth: "300px" }}>

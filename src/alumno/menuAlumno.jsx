@@ -16,6 +16,8 @@ const MenuAlumno = () => {
     localStorage.removeItem("usuario");
     window.location.href = "/";
   };
+  const Notification = () =>
+    navigate("/Notificaciones_alumno")
   
 
   return (
@@ -27,6 +29,7 @@ const MenuAlumno = () => {
         <li onClick={irQR_}>Codigo QR</li>
         <li onClick={ir_calen}>Calendario escolar</li>
         <li onClick={ir_histo}>Historial</li>
+        <li onClick={Notification}>Notificaciones</li>
         <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>
       </ul>
     </aside>
