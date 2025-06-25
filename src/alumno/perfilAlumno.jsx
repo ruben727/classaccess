@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/alumno.css";
+import "./menuAlumno";
+import MenuAlumno from "./menuAlumno";
 
 const PerfilAlumno = () => {
   const [usuario, setUsuario] = useState(null);
@@ -15,33 +17,13 @@ const PerfilAlumno = () => {
     }
   }, []);
 
-  const irPerfil = () => {
-    navigate("/perfilAlumno");
-  };
-
-  const cerrarSesion = () => {
-    localStorage.removeItem("usuario");
-    window.location.href = "/";
-  };
-  const irQr = ()=>{
-  navigate("/CodigoQR")
-}
   if (!usuario) return <p>Cargando...</p>;
 
   return (
-    <div className="dashboard-alumno">
-      <aside className="sidebar-alumno">
-        <h2>Alumno</h2>
-        <ul>
-          <li onClick={() => navigate("/alumno")}>Inicio</li>
-          <li onClick={irPerfil}>Perfil</li>
-          <li onClick={irQr}>Codigo Qr</li>
-          <li>Clases</li>
-          <li>Calendario escolar</li>
-          <li>Historial</li>
-          <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>
-        </ul>
-      </aside>
+     <div style={{ display: "flex", height: "100vh" }}>
+      {/* Sidebar */}
+      <MenuAlumno></MenuAlumno>
+
 
       <main className="contenido-alumno">
         <h1>Perfil del Alumno</h1>
