@@ -1,0 +1,19 @@
+.filtros {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.contenedor-reportes {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.reporte-seccion {
+  flex: 1;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #ccc;
+}

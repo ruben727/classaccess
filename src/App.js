@@ -31,6 +31,7 @@ import Calendario from "./alumno/Calendario";
 import Notificationes from "./alumno/Notificaciones_alumno";
 
 
+
 function App() {
   return (
     <Router>
@@ -52,30 +53,9 @@ function App() {
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
 
-        <Route path="/codigo_Qr" element={<Codigo_QR/>} />
-
-        {/* Rutas admin */}
-        <Route path="/admi" element={<Admi />} />
-        <Route path="/usuarios" element={<Usuarios />} />
-        <Route path="/registro" element={<RegistrarUsuario />} />
-        <Route path="/perfilAdmin" element={<PerfilAdmin />} />
-        <Route path="/asistencias" element={<Asistencias />} />
-        <Route path="/notificaciones" element={<EnviarNotificaciones />} />
-       <Route path="/codigo_Qr" element={<Codigo_QR/>} />
-        <Route path="/CodigoQR" element={<CodigoQr />} />
-
-        <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
-        <Route path="/reportes" element={<Reportes/>}/>
-        <Route path="/enviarNotificaciones" element={<EnviarNotificaciones/>} />
-
-        <Route path="/dispositivos" element={<Dispositivos/>}/>
-        <Route path="/aulas" element={<Aulas/>}/>
-        <Route path="/asistencias" element={<Asistencias/>}/>
-      
-
       </Routes>
     </Router>
-  );
+  )
 }
 
 export default App;
