@@ -24,13 +24,9 @@ import Alumno from "./alumno/dashboardAlumno";
 import PerfilAlumno from "./alumno/perfilAlumno";
 import Historial from "./alumno/historialAlumno";
 import CodigoQr from "./alumno/CodigoQr";
-<<<<<<< HEAD
-
-=======
 import MenuAlumno from "./alumno/menuAlumno";
 import Calendario from "./alumno/Calendario";
-import Reportes from "./admi/reportes";
->>>>>>> 81f785b4b9c1fc3e9c151f4279f32549b10d127d
+
 
 function App() {
   return (
@@ -52,18 +48,14 @@ function App() {
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
 
-<<<<<<< HEAD
-        <Route path="/codigo_Qr" element={<Codigo_QR/>} />
-=======
-        {/* Rutas admin */}
+         {/* Rutas admin */}
         <Route path="/admi" element={<Admi />} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/registro" element={<RegistrarUsuario />} />
         <Route path="/perfilAdmin" element={<PerfilAdmin />} />
         <Route path="/asistencias" element={<Asistencias />} />
         <Route path="/notificaciones" element={<EnviarNotificaciones />} />
-       <Route path="/codigo_Qr" element={<Codigo_QR/>} />
->>>>>>> 81f785b4b9c1fc3e9c151f4279f32549b10d127d
+        <Route path="/codigo_Qr" element={<Codigo_QR/>} />
         <Route path="/CodigoQR" element={<CodigoQr />} />
 
         <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
