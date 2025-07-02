@@ -1,0 +1,18 @@
+/* Estilos del contenedor centrador */
+.position-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px); 
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Estilos de la imagen */
+.calendario1-image {
+  width: 400px;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+

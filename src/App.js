@@ -15,6 +15,7 @@ import Maestro from "./maestro/dashboardMaestros";
 import PerfilMaestro from "./maestro/perfilMaestro";
 import CalendarioMaestro from "./maestro/calendarioMaestro";
 import Codigo_QR from "./maestro/Codigo_QR";
+import HorarioMaestro from "./maestro/horarioMaestro";
 
 
 // Alumno
@@ -37,6 +38,10 @@ function App() {
         <Route path="/registro" element={<RegistrarUsuario />} />
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
+        <Route path="/horarioMaestro" element={<HorarioMaestro />} />
+
+       <Route path="/codigo_Qr" element={<Codigo_QR/>} />
+        <Route path="/CodigoQR" element={<CodigoQr />} />
 
       </Routes>
     </Router>
