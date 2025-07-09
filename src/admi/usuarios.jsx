@@ -48,7 +48,7 @@ const Usuarios = () => {
     <MenuAdmin></MenuAdmin>
    
       <main className="contenido-administrador">
-         
+         <br /><br /><br /><br /><br />
         <h1 className="titulo-usuarios">Gestión de Usuarios</h1>
       <br /><br />
         <button onClick={() => navigate("/registro")} className="btn-agregar">Agregar Usuario</button>

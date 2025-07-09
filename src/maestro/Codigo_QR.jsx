@@ -28,7 +28,7 @@ const Codigo_QR = () => {
   if (!profesor) return <p style={{ textAlign: "center" }}>Cargando QR...</p>;
 
   return (
-    <div className="dashboard-maestro">
+    <div className="dashboard-alumno">
       <MenuMaestro />
 
       <div style={{ padding: 20, width: "100%", maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>

@@ -20,7 +20,7 @@ const Maestro = () => {
   }, []);
 
     return (
-        <div className="dashboard-maestro">
+        <div className="dashboard-alumno">
             <MenuMaestro></MenuMaestro>
             <main className="contenido-maestro">
                 <h1>Bienvenido, {nombre} </h1>

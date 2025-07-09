@@ -12,16 +12,13 @@ const MenuMaestro = () => {
     navigate("/perfilMaestro");
   }
 
-  const irHorario = () =>{
-    navigate("/horarioMaestro");
-  }
 
   const irCalendario = () =>{
     navigate("/calendarioMaestro");
   }
 
   const irHistorial = () =>{
-    navigate("/historialMaestro");
+    navigate("/historialMaestros");
   }
 
   const cerrarSesion = () => {
@@ -39,7 +36,6 @@ const MenuMaestro = () => {
                     <li onClick={irInicio}>Inicio</li>
                     <li onClick={irPerfil}>Perfil</li>
                     <li onClick={irQr}>Codigo QR</li>
-                    <li onClick={irHorario}>Horario</li>
                     <li onClick={irCalendario}>Calendario</li>
                     <li onClick={irHistorial}>Historial</li>
                     <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>

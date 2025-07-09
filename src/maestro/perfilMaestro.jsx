@@ -18,7 +18,7 @@ const PerfilMaestro = () => {
   }, []);
 
   return (
-    <div className="dashboard-maestro">
+    <div className="dashboard-alumno">
       <MenuMaestro />
       <h1 className="titulo-perfil">Perfil del Maestro</h1>
       <div className="tarjeta-perfil">

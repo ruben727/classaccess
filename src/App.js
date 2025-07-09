@@ -18,6 +18,7 @@ import Maestro from "./maestro/dashboardMaestros";
 import PerfilMaestro from "./maestro/perfilMaestro";
 import CalendarioMaestro from "./maestro/calendarioMaestro";
 import Codigo_QR from "./maestro/Codigo_QR";
+import HistorialMaestros from "./maestro/historialMaestro";
 
 // Alumno
 import Alumno from "./alumno/dashboardAlumno";
@@ -27,7 +28,7 @@ import CodigoQr from "./alumno/CodigoQr";
 import MenuAlumno from "./alumno/menuAlumno";
 import Calendario from "./alumno/Calendario";
 
-import Reportes from "./admi/reportes";
+
 import Notificationes from "./alumno/Notificaciones_alumno";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
+        <Route path="historialMaestros" element={<HistorialMaestros/>}/>
 
          {/* Rutas admin */}
         <Route path="/admi" element={<Admi />} />
@@ -64,6 +66,7 @@ function App() {
         <Route path="/perfilAdmi" element={<PerfilAdmin/>}/>
         <Route path="/reportes" element={<Reportes/>}/>
         <Route path="/enviarNotificaciones" element={<EnviarNotificaciones/>} />
+        <Route path="/reportes" element={<Reportes/>}/>
 
         <Route path="/dispositivos" element={<Dispositivos/>}/>
         <Route path="/aulas" element={<Aulas/>}/>
@@ -76,3 +79,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
