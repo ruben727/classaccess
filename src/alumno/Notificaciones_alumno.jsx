@@ -79,4 +79,8 @@ const NotificacionesAlumno = () => {
   );
 };
 
+<<<<<<< HEAD
 export default NotificacionesAlumno;
+=======
+export default NotificacionesAlumno;
+>>>>>>> de48a304d149cd58a14155a66f21a4928ad9abb5
