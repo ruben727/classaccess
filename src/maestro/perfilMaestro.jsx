@@ -9,16 +9,20 @@ const PerfilMaestro = () => {
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/perfilprof")
-      .then((res) => {
-        setMaestro(res.data);
-        setCargando(false);
-      })
-      .catch((err) => {
-        console.error("Error al obtener datos del profesor:", err);
-        setCargando(false);
-      });
-  }, []);
+  const id_usu = localStorage.getItem("id_usu");
+  if (!id_usu) return;
+
+  axios.get(`http://localhost:3001/api/perfilprof/${id_usu}`)
+    .then((res) => {
+      setMaestro(res.data);
+      setCargando(false);
+    })
+    .catch((err) => {
+      console.error("Error al obtener datos del profesor:", err);
+      setCargando(false);
+    });
+}, []);
+
 
   return (
     <div className="dashboard-maestro">
