@@ -40,6 +40,11 @@ const MenuMaestro = () => {
     setMobileMenuOpen(false);
   };
 
+  const irNotificaciones = () => {
+    navigate("/Notificaciones");
+    setMobileMenuOpen(false);
+  };  
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -73,6 +78,9 @@ const MenuMaestro = () => {
         </li>
         <li onClick={irListas}>
           <span>Listas</span>
+        </li>
+        <li onClick={irNotificaciones}>
+          <span>Notificaciones</span>
         </li>
         <li className="logout" onClick={cerrarSesion}>
           <span>Cerrar sesión</span>

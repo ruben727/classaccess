@@ -23,6 +23,7 @@ import Codigo_QR from "./maestro/Codigo_QR";
 import HistorialMaestros from "./maestro/historialMaestro";
 import HorarioMaestro from "./maestro/horarioMaestro";
 import ListasMaestro from "./maestro/listasMaestro";
+import NotificacionesMaestro from "./maestro/notificacionesMaestro";
 
 
 // Alumno
@@ -61,6 +62,7 @@ function App() {
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
         <Route path="/historialMaestros" element={<HistorialMaestros/>}/>
         <Route path="/Listas" element={<ListasMaestro/>}/>
+        <Route path="/Notificaciones" element={<NotificacionesMaestro/>}/>
 
          {/* Rutas admin */}
         <Route path="/admi" element={<Admi />} />
