@@ -8,11 +8,14 @@ const Login = () => {
   const [mensaje, setMensaje] = useState("");
 
   const navigate = useNavigate();
+    const irRegistro = () => 
+      navigate("/RegistroAlumno");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3001/login", {
+        // http://192.168.1.11:8080/classaccess/api.php?endpoint=login
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,6 +29,7 @@ const Login = () => {
         setMensaje("Login exitoso");
       
       const tipoUsuario = data.user.priv_usu;
+    
 
         localStorage.setItem("usuario", JSON.stringify(data.user));
         localStorage.setItem("id_usu", data.user.id_usu);
@@ -51,6 +55,9 @@ const Login = () => {
       console.error("Error:", error);
       setMensaje("Error al intentar iniciar sesión");
     }
+
+  
+
   };
 
   return (
@@ -81,6 +88,7 @@ const Login = () => {
           />
         </div>
         <button type="submit">Iniciar Sesión</button>
+        <button onClick={irRegistro} className="boton-registro">Registro</button>
       </form>
       {mensaje && <p className="mensaje">{mensaje}</p>}
     </div>

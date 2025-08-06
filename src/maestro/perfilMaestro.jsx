@@ -1,34 +1,63 @@
-// src/maestro/perfilMaestro.jsx
 import React, { useEffect, useState } from "react";
 import "../styles/maestro.css";
+import "../styles/perfilMaestro.css";
 import axios from "axios";
 import MenuMaestro from "./menuMaestro";
 
 const PerfilMaestro = () => {
   const [maestro, setMaestro] = useState({});
+  const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     axios.get("http://localhost:3001/api/perfilprof")
       .then((res) => {
         setMaestro(res.data);
+        setCargando(false);
       })
       .catch((err) => {
         console.error("Error al obtener datos del profesor:", err);
+        setCargando(false);
       });
   }, []);
 
   return (
-    <div className="dashboard-alumno">
+    <div className="dashboard-maestro">
       <MenuMaestro />
-      <div className="contenido-maestro">
-      <h1 className="titulo-perfil">Perfil del Maestro</h1>
-      <div className="tarjeta-perfil">
-        <p><strong>Nombre:</strong> {maestro.nombre_usu} {maestro.ap_usu} {maestro.am_usu}</p>
-        <p><strong>Correo:</strong> {maestro.correo_usu}</p>
-        <p><strong>No. Empleado:</strong> {maestro.no_empleado}</p>
-        <p><strong>Estatus:</strong> {maestro.estatus_usu === 1 ? "Activo" : "Inactivo"}</p>
-      </div>
-      </div>
+      <main className="contenido-maestro">
+        <h1 className="titulo-seccion">Perfil del Maestro</h1>
+        
+        {cargando ? (
+          <div className="cargando-perfil">
+            <p>Cargando información...</p>
+          </div>
+        ) : (
+          <div className="contenedor-perfil">
+            <div className="tarjeta-perfil">
+              <div className="campo-perfil">
+                <span className="etiqueta-perfil">Nombre:</span>
+                <span className="valor-perfil">{maestro.nombre_usu} {maestro.ap_usu} {maestro.am_usu}</span>
+              </div>
+              
+              <div className="campo-perfil">
+                <span className="etiqueta-perfil">Correo:</span>
+                <span className="valor-perfil">{maestro.correo_usu}</span>
+              </div>
+              
+              <div className="campo-perfil">
+                <span className="etiqueta-perfil">No. Empleado:</span>
+                <span className="valor-perfil">{maestro.no_empleado}</span>
+              </div>
+              
+              <div className="campo-perfil">
+                <span className="etiqueta-perfil">Estatus:</span>
+                <span className={`valor-perfil ${maestro.estatus_usu === 1 ? 'activo' : 'inactivo'}`}>
+                  {maestro.estatus_usu === 1 ? "Activo" : "Inactivo"}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

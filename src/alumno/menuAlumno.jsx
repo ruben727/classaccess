@@ -1,36 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/alumno.css";
 
 const MenuAlumno = () => {
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const irPerfil = () => navigate("/perfilAlumno");
-  const irQR_ = ()=> 
+  const irInicio = () => {
+    navigate("/alumno");
+    setMobileMenuOpen(false);
+  };
+  
+  const irPerfil = () => {
+    navigate("/perfilAlumno");
+    setMobileMenuOpen(false);
+  };
+
+  const irQR = () => {
     navigate("/CodigoQr");
-  const ir_histo = () => 
-    navigate ("/historialAlumno");
-  const ir_calen = () =>
+    setMobileMenuOpen(false);
+  };
+  
+  const irCalendario = () => {
     navigate("/Calendario");
+    setMobileMenuOpen(false);
+  };
+
+  const irHistorial = () => {
+    navigate("/historialAlumno");
+    setMobileMenuOpen(false);
+  };
+
+  const irNotificaciones = () => {
+    navigate("/Notificaciones_alumno");
+    setMobileMenuOpen(false);
+  };
+
   const cerrarSesion = () => {
     localStorage.removeItem("usuario");
-    window.location.href = "/";
+    navigate("/");
   };
-  const Notification = () =>
-    navigate("/Notificaciones_alumno")
-  
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
 
   return (
-    <aside className="sidebar-alumno">
+    <aside className={`sidebar-alumno ${mobileMenuOpen ? 'mobile-open' : ''}`}>
       <h2>Alumno</h2>
+      
+      {/* Botón hamburguesa para móviles */}
+      <div className="menu-toggle" onClick={toggleMobileMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
       <ul>
-        <li onClick={() => navigate("/alumno")}>Inicio</li>
-        <li onClick={irPerfil}>Perfil</li>
-        <li onClick={irQR_}>Codigo QR</li>
-        <li onClick={ir_calen}>Calendario escolar</li>
-        <li onClick={ir_histo}>Historial</li>
-        <li onClick={Notification}>Notificaciones</li>
-        <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>
+        <li onClick={irInicio}>
+          <span>Inicio</span>
+        </li>
+        <li onClick={irPerfil}>
+          <span>Perfil</span>
+        </li>
+        <li onClick={irQR}>
+          <span>Código QR</span>
+        </li>
+        <li onClick={irCalendario}>
+          <span>Calendario Escolar</span>
+        </li>
+        <li onClick={irHistorial}>
+          <span>Historial</span>
+        </li>
+        <li onClick={irNotificaciones}>
+          <span>Notificaciones</span>
+        </li>
+        <li className="logout" onClick={cerrarSesion}>
+          <span>Cerrar sesión</span>
+        </li>
       </ul>
     </aside>
   );

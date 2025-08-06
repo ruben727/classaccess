@@ -1,18 +1,63 @@
-/* Estilos del contenedor centrador */
-.position-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 60px); 
-  flex-direction: column;
-  width: 100%;
+/* Estilos para el calendario */
+.titulo-calendario {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
 }
 
-/* Estilos de la imagen */
-.calendario1-image {
-  width: 400px;
-  height: auto;
-  border-radius: 2px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.contenedor-calendario {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
 }
 
+.tarjeta-calendario {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen-calendario {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .titulo-calendario {
+        font-size: 1.7rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .contenedor-calendario {
+        padding: 0 0.5rem;
+        gap: 1.5rem;
+    }
+    
+    .tarjeta-calendario {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo-calendario {
+        font-size: 1.5rem;
+    }
+    
+    .contenedor-calendario {
+        gap: 1rem;
+    }
+}

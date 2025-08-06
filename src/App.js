@@ -1,5 +1,6 @@
 import React from "react";
 import Login from "./components/login";
+import RegistroAlumno from "./components/registro";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Admin
@@ -19,11 +20,10 @@ import Maestro from "./maestro/dashboardMaestros";
 import PerfilMaestro from "./maestro/perfilMaestro";
 import CalendarioMaestro from "./maestro/calendarioMaestro";
 import Codigo_QR from "./maestro/Codigo_QR";
-<<<<<<< HEAD
 import HistorialMaestros from "./maestro/historialMaestro";
-=======
 import HorarioMaestro from "./maestro/horarioMaestro";
->>>>>>> de48a304d149cd58a14155a66f21a4928ad9abb5
+import ListasMaestro from "./maestro/listasMaestro";
+
 
 // Alumno
 import Alumno from "./alumno/dashboardAlumno";
@@ -33,11 +33,6 @@ import CodigoQr from "./alumno/CodigoQr";
 
 import MenuAlumno from "./alumno/menuAlumno";
 import Calendario from "./alumno/Calendario";
-<<<<<<< HEAD
-
-
-=======
->>>>>>> de48a304d149cd58a14155a66f21a4928ad9abb5
 import Notificationes from "./alumno/Notificaciones_alumno";
 
 
@@ -47,6 +42,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="RegistroAlumno" element={<RegistroAlumno/>}/>
 
         {/* Rutas alumno */}
         <Route path="/alumno" element={<Alumno />} />
@@ -61,9 +57,10 @@ function App() {
         <Route path="/maestro" element={<Maestro />} />
         <Route path="/perfilMaestro" element={<PerfilMaestro />} />
         <Route path="/calendarioMaestro" element={<CalendarioMaestro />} />
-<<<<<<< HEAD
+
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
-        <Route path="historialMaestros" element={<HistorialMaestros/>}/>
+        <Route path="/historialMaestros" element={<HistorialMaestros/>}/>
+        <Route path="/Listas" element={<ListasMaestro/>}/>
 
          {/* Rutas admin */}
         <Route path="/admi" element={<Admi />} />
@@ -84,12 +81,11 @@ function App() {
         <Route path="/aulas" element={<Aulas/>}/>
         <Route path="/asistencias" element={<Asistencias/>}/>
       
-=======
         <Route path="/horarioMaestro" element={<HorarioMaestro />} />
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
         <Route path="/CodigoQR" element={<CodigoQr />} />
         <Route path="/codigo_Qr" element={<Codigo_QR/>} />
->>>>>>> de48a304d149cd58a14155a66f21a4928ad9abb5
+
 
       </Routes>
     </Router>

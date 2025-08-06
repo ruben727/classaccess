@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MenuAlumno from "./menuAlumno";
-import "../styles/notificacioness.css";
+import "../styles/notificacionesAlumno.css";
 
 const NotificacionesAlumno = () => {
   const [notificaciones, setNotificaciones] = useState([]);
@@ -45,29 +45,29 @@ const NotificacionesAlumno = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div className="alumno-notificaciones-container">
       <MenuAlumno />
-      <div className="noti-contenedor">
-        <h2>Mis notificaciones</h2>
+      <div className="alumno-noti-contenedor">
+        <h2 className="alumno-noti-titulo">Mis notificaciones</h2>
 
         {cargando ? (
-          <p>Cargando...</p>
+          <p className="alumno-noti-cargando">Cargando...</p>
         ) : notificaciones.length === 0 ? (
-          <p>No tienes notificaciones.</p>
+          <p className="alumno-noti-sin-datos">No tienes notificaciones.</p>
         ) : (
-          <div className="noti-tabla-contenedor">
-            <table className="noti-tabla">
+          <div className="alumno-noti-tabla-contenedor">
+            <table className="alumno-noti-tabla">
               <thead>
                 <tr>
-                  <th>Mensaje</th>
-                  <th>Fecha</th>
+                  <th className="alumno-noti-cabecera">Mensaje</th>
+                  <th className="alumno-noti-cabecera">Fecha</th>
                 </tr>
               </thead>
               <tbody>
                 {notificaciones.map((noti) => (
-                  <tr key={noti.id_notificacion}>
-                    <td title={noti.mensaje}>{noti.mensaje}</td>
-                    <td>{new Date(noti.fecha).toLocaleString("es-MX")}</td>
+                  <tr key={noti.id_notificacion} className="alumno-noti-fila">
+                    <td className="alumno-noti-mensaje" title={noti.mensaje}>{noti.mensaje}</td>
+                    <td className="alumno-noti-fecha">{new Date(noti.fecha).toLocaleString("es-MX")}</td>
                   </tr>
                 ))}
               </tbody>
@@ -79,8 +79,4 @@ const NotificacionesAlumno = () => {
   );
 };
 
-<<<<<<< HEAD
 export default NotificacionesAlumno;
-=======
-export default NotificacionesAlumno;
->>>>>>> de48a304d149cd58a14155a66f21a4928ad9abb5

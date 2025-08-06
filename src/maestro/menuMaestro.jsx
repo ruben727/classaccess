@@ -1,47 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MenuMaestro = () => {
-      const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const irInicio = () =>{
+  const irInicio = () => {
     navigate("/maestro");
-  }
+    setMobileMenuOpen(false);
+  };
 
-  const irPerfil = () =>{
+  const irPerfil = () => {
     navigate("/perfilMaestro");
-  }
+    setMobileMenuOpen(false);
+  };
 
-
-  const irCalendario = () =>{
+  const irCalendario = () => {
     navigate("/calendarioMaestro");
-  }
+    setMobileMenuOpen(false);
+  };
 
-  const irHistorial = () =>{
+  const irHistorial = () => {
     navigate("/historialMaestros");
-  }
+    setMobileMenuOpen(false);
+  };
 
   const cerrarSesion = () => {
     localStorage.removeItem("usuario");
-    window.location.href = "/";
+    navigate("/");
   };
+
   const irQr = () => {
     navigate("/Codigo_QR");
-  }
+    setMobileMenuOpen(false);
+  };
 
-    return (
-            <aside className="sidebar-maestro">
-                <h2>Maestro</h2>
-                <ul>
-                    <li onClick={irInicio}>Inicio</li>
-                    <li onClick={irPerfil}>Perfil</li>
-                    <li onClick={irQr}>Codigo QR</li>
-                    <li onClick={irCalendario}>Calendario</li>
-                    <li onClick={irHistorial}>Historial</li>
-                    <li className="logout" onClick={cerrarSesion}>Cerrar sesión</li>
-                </ul>
-            </aside>
-    );
-}
+  const irListas = () => {
+    navigate("/Listas");
+    setMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  return (
+    <aside className={`sidebar-maestro ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+      <h2>Maestro</h2>
+      
+      {/* Botón hamburguesa para móviles */}
+      <div className="menu-toggle" onClick={toggleMobileMenu}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <ul>
+        <li onClick={irInicio}>
+          <span>Inicio</span>
+        </li>
+        <li onClick={irPerfil}>
+          <span>Perfil</span>
+        </li>
+        <li onClick={irQr}>
+          <span>Código QR</span>
+        </li>
+        <li onClick={irCalendario}>
+          <span>Calendario</span>
+        </li>
+        <li onClick={irHistorial}>
+          <span>Historial</span>
+        </li>
+        <li onClick={irListas}>
+          <span>Listas</span>
+        </li>
+        <li className="logout" onClick={cerrarSesion}>
+          <span>Cerrar sesión</span>
+        </li>
+      </ul>
+    </aside>
+  );
+};
 
 export default MenuMaestro;

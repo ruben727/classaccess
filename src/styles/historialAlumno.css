@@ -1,0 +1,107 @@
+/* Estilos para el historial del maestro */
+.titulo-seccion {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.contenedor-tabla {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.tabla-historial {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.tabla-historial th {
+    background-color: #676b69;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.tabla-historial td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #4b5563;
+}
+
+.tabla-historial tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.tabla-historial tr:hover {
+    background-color: #f0fdf4;
+}
+
+.cargando-historial, .sin-registros {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 1.1rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .tabla-historial {
+        display: block;
+        width: 100%;
+    }
+    
+    .tabla-historial thead {
+        display: none;
+    }
+    
+    .tabla-historial tbody, 
+    .tabla-historial tr, 
+    .tabla-historial td {
+        display: block;
+        width: 100%;
+    }
+    
+    .tabla-historial tr {
+        margin-bottom: 15px;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    
+    .tabla-historial td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    
+    .tabla-historial td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: 45%;
+        padding-right: 10px;
+        font-weight: 600;
+        color: #1f2937;
+        text-align: left;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo-seccion {
+        font-size: 1.7rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .tabla-historial td {
+        padding: 10px 15px 10px 50%;
+    }
+    
+    .tabla-historial td::before {
+        left: 10px;
+    }
+}

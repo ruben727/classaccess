@@ -1,0 +1,198 @@
+/* Estilos para el perfil */
+.titulo-perfil {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-perfil {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.perfil-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.perfil-header h2 {
+    font-size: 1.5rem;
+    color: #2563eb;
+}
+
+.perfil-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+}
+
+.info-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #374151;
+    width: 120px;
+    margin-right: 1rem;
+}
+
+.info-value {
+    color: #4b5563;
+    flex: 1;
+}
+
+.cargando {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #4b5563;
+}
+
+/* Responsive para perfil */
+@media (max-width: 768px) {
+    .card-perfil {
+        padding: 1.5rem;
+    }
+    
+    .titulo-perfil {
+        font-size: 1.7rem;
+    }
+    
+    .perfil-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+    
+    .info-label {
+        width: 100%;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-perfil {
+        padding: 1rem;
+        border-radius: 8px;
+    }
+    
+    .titulo-perfil {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .perfil-info {
+        gap: 1rem;
+    }
+}
+
+
+
+/* Estilos para el formulario de edición */
+.form-editar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.btn-editar, .btn-guardar, .btn-cancelar {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn-editar {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-editar:hover {
+  background-color: #45a049;
+}
+
+.btn-guardar {
+  background-color: #2196F3;
+  color: white;
+  align-self: flex-end;
+  margin-top: 10px;
+}
+
+.btn-guardar:hover {
+  background-color: #0b7dda;
+}
+
+.btn-guardar:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.btn-cancelar {
+  background-color: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+.btn-cancelar:hover {
+  background-color: #da190b;
+}
+
+.message {
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.message.success {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.message.error {
+  background-color: #f2dede;
+  color: #a94442;
+}
+
+.perfil-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}

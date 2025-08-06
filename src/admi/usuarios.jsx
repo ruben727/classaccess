@@ -1,127 +1,165 @@
 import React, { useEffect, useState } from "react";
-import "../styles/administrador.css";
 import "../styles/usuarios.css";
 import { useNavigate } from "react-router-dom";
 import MenuAdmin from "./menuAdmi";
-import RegistrarUsuario from "./registrarUsuario";
 
 const Usuarios = () => {
-  const [maestros, setMaestros] = useState([]);
-  const [alumnos, setAlumnos] = useState([]);
-  const [administradores, setAdministradores] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
+  const [tipoFiltro, setTipoFiltro] = useState("todos");
+  const [busqueda, setBusqueda] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3001/usuarios")
-      .then(res => res.json())
-      .then(data => {
-        // Validar que data existe y tiene las propiedades
-        setMaestros(Array.isArray(data.maestros) ? data.maestros : []);
-        setAlumnos(Array.isArray(data.alumnos) ? data.alumnos : []);
-        setAdministradores(Array.isArray(data.administradores) ? data.administradores : []);
-      })
-      .catch(err => {
+    const fetchUsuarios = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/usuarios");
+        const data = await response.json();
+        
+        const combinados = [
+          ...data.alumnos.map(u => ({ ...u, tipo: "alumno" })),
+          ...data.maestros.map(u => ({ ...u, tipo: "maestro" })),
+          ...data.administradores.map(u => ({ ...u, tipo: "administrador" }))
+        ];
+        
+        setUsuarios(combinados);
+        setLoading(false);
+      } catch (err) {
         console.error("Error al obtener usuarios:", err);
-        setMaestros([]);
-        setAlumnos([]);
-        setAdministradores([]);
-      });
+        setError("Error al cargar los usuarios");
+        setLoading(false);
+      }
+    };
+
+    fetchUsuarios();
   }, []);
 
-  const cambiarEstatus = (id, nuevoEstatus) => {
-    fetch(`http://localhost:3001/usuarios/${id}/estatus`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ estatus: nuevoEstatus })
-    })
-      .then(() => {
-        // Actualiza en el estado local
-        setMaestros(prev => prev.map(u => u.id_usu === id ? { ...u, estatus_usu: nuevoEstatus } : u));
-        setAlumnos(prev => prev.map(u => u.id_usu === id ? { ...u, estatus_usu: nuevoEstatus } : u));
+  const cambiarEstatus = async (id, nuevoEstatus) => {
+    try {
+      await fetch(`http://localhost:3001/usuarios/${id}/estatus`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ estatus: nuevoEstatus })
       });
+      
+      setUsuarios(prev =>
+        prev.map(u => u.id_usu === id ? { ...u, estatus_usu: nuevoEstatus } : u)
+      );
+    } catch (err) {
+      console.error("Error al cambiar estatus:", err);
+      alert("No se pudo actualizar el estatus del usuario");
+    }
   };
+
+  const usuariosFiltrados = usuarios.filter(u => {
+    const nombreCompleto = `${u.nombre_usu} ${u.ap_usu} ${u.am_usu}`.toLowerCase();
+    const coincideBusqueda = nombreCompleto.includes(busqueda.toLowerCase()) || 
+                           u.correo_usu.toLowerCase().includes(busqueda.toLowerCase());
+    const coincideTipo = tipoFiltro === "todos" || u.tipo === tipoFiltro;
+    return coincideBusqueda && coincideTipo;
+  });
+
+  if (loading) return <div className="loading">Cargando usuarios...</div>;
+  if (error) return <div className="error">{error}</div>;
 
   return (
     <div className="dashboard-administrador">
-    <MenuAdmin></MenuAdmin>
-   
-      <main className="contenido-administrador">
-         <br /><br /><br /><br /><br />
-        <h1 className="titulo-usuarios">Gestión de Usuarios</h1>
-      <br /><br />
-        <button onClick={() => navigate("/registro")} className="btn-agregar">Agregar Usuario</button>
+      <MenuAdmin />
 
-        <section>
-          <h2>Maestros</h2>
-          <table>
+      <main className="contenido-administrador usuarios-container">
+        <div className="usuarios-header">
+          <h1>Gestión de Usuarios</h1>
+          <button 
+            onClick={() => navigate("/registro")} 
+            className="btn-agregar"
+          >
+            <i className="icon-plus"></i> Agregar Usuario
+          </button>
+        </div>
+
+        <div className="filtros-container">
+          <form className="filtros" onSubmit={e => e.preventDefault()}>
+            <div className="filtro-group">
+              <label htmlFor="tipo-filtro">Filtrar por tipo:</label>
+              <select 
+                id="tipo-filtro"
+                value={tipoFiltro} 
+                onChange={(e) => setTipoFiltro(e.target.value)}
+                className="select-filtro"
+              >
+                <option value="todos">Todos los usuarios</option>
+                <option value="alumno">Alumnos</option>
+                <option value="maestro">Maestros</option>
+                <option value="administrador">Administradores</option>
+              </select>
+            </div>
+            
+            <div className="filtro-group">
+              <label htmlFor="busqueda">Buscar:</label>
+              <input
+                id="busqueda"
+                type="text"
+                placeholder="Nombre o correo electrónico"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+                className="input-busqueda"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div className="table-responsive">
+          <table className="usuarios-table">
             <thead>
               <tr>
-                <th>Nombre</th><th>Correo</th><th>Estatus</th><th>Acciones</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Tipo</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {maestros.map(m => (
-                <tr key={m.id_usu}>
-                  <td>{m.nombre_usu} {m.ap_usu} {m.am_usu}</td>
-                  <td>{m.correo_usu}</td>
-                  <td>{m.estatus_usu === 0 ? "Inactivo" : "Activo"}</td>
-                  <td>
-                    <button onClick={() => cambiarEstatus(m.id_usu, m.estatus_usu === 1 ? 0 : 1)}>
-                      {m.estatus_usu === 1 ?  "Dar de baja" : "Activar" }
-                    </button>
+              {usuariosFiltrados.length > 0 ? (
+                usuariosFiltrados.map(u => (
+                  <tr key={u.id_usu}>
+                    <td data-label="Nombre">{u.nombre_usu} {u.ap_usu} {u.am_usu}</td>
+                    <td data-label="Correo">{u.correo_usu}</td>
+                    <td data-label="Tipo">
+                      <span className={`badge ${u.tipo}`}>
+                        {u.tipo.charAt(0).toUpperCase() + u.tipo.slice(1)}
+                      </span>
+                    </td>
+                    <td data-label="Estatus">
+                      <span className={`estatus ${u.estatus_usu === 1 ? 'activo' : 'inactivo'}`}>
+                        {u.estatus_usu === 1 ? "Activo" : "Inactivo"}
+                      </span>
+                    </td>
+                    <td data-label="Acciones">
+                      {u.tipo !== "administrador" && (
+                        <button 
+                          onClick={() => cambiarEstatus(u.id_usu, u.estatus_usu === 1 ? 0 : 1)}
+                          className={`btn-estatus ${u.estatus_usu === 1 ? 'desactivar' : 'activar'}`}
+                        >
+                          {u.estatus_usu === 1 ? "Desactivar" : "Activar"}
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className="no-results">
+                    No se encontraron usuarios con los filtros aplicados
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
-        </section>
-
-        <section>
-          <h2>Alumnos</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th><th>Correo</th><th>Estatus</th><th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {alumnos.map(a => (
-                <tr key={a.id_usu}>
-                  <td>{a.nombre_usu} {a.ap_usu} {a.am_usu}</td>
-                  <td>{a.correo_usu}</td>
-                  <td>{a.estatus_usu === 0 ? "Inactivo" : "Activo"}</td>
-                  <td>
-                    <button onClick={() => cambiarEstatus(a.id_usu, a.estatus_usu === 1 ? 0 : 1)}>
-                      {a.estatus_usu === 1 ? "Dar de baja" : "Activar"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-
-        <section>
-          <h2>Administradores</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Nombre</th><th>Correo</th><th>Estatus</th>
-              </tr>
-            </thead>
-            <tbody>
-              {administradores.map(ad => (
-                <tr key={ad.id_usu}>
-                  <td>{ad.nombre_usu} {ad.ap_usu} {ad.am_usu}</td>
-                  <td>{ad.correo_usu}</td>
-                  <td>{ad.estatus_usu === 1 ? "Activo" : "Inactivo"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+        </div>
       </main>
     </div>
   );

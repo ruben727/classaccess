@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, PieChart, Pie, Cell, Legend } from "recharts";
 import MenuAdmin from "./menuAdmi";
-import "../styles/administrador.css";
-import "../styles/usuarios.css";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import "../styles/reportes.css";
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const Reportes = () => {
   const [asistencias, setAsistencias] = useState([]);
@@ -14,90 +16,222 @@ const Reportes = () => {
   const [inicioCuatri, setInicioCuatri] = useState("");
   const [finCuatri, setFinCuatri] = useState("");
   const [clasesEfectivas, setClasesEfectivas] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     obtenerGrupos();
     obtenerAsistencias();
   }, [filtroFecha, filtroGrupo]);
 
-  const obtenerAsistencias = () => {
-    const params = new URLSearchParams();
-    if (filtroFecha) params.append("fecha", filtroFecha);
-    if (filtroGrupo) params.append("grupo", filtroGrupo);
+  const obtenerAsistencias = async () => {
+    try {
+      setIsLoading(true);
+      const params = new URLSearchParams();
+      if (filtroFecha) params.append("fecha", filtroFecha);
+      if (filtroGrupo) params.append("grupo", filtroGrupo);
 
-    fetch(`http://localhost:3001/api/asistencias/reportes?${params.toString()}`)
-      .then(res => res.json())
-      .then(data => setAsistencias(data));
+      const response = await fetch(`http://localhost:3001/api/asistencias/reportes?${params.toString()}`);
+      const data = await response.json();
+      setAsistencias(data);
+    } catch (error) {
+      console.error("Error al obtener asistencias:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const obtenerGrupos = () => {
-    fetch("http://localhost:3001/api/grupos")
-      .then(res => res.json())
-      .then(data => setGrupos(data));
+  const obtenerGrupos = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/grupos");
+      const data = await response.json();
+      setGrupos(data);
+    } catch (error) {
+      console.error("Error al obtener grupos:", error);
+    }
   };
 
-  const asistenciasFiltradas = asistencias.filter(() => true); // Ya vienen filtradas
+  const asistenciasFiltradas = asistencias.filter(() => true);
 
-  const datosMaestros = contarAsistencias(asistenciasFiltradas.filter(a => a.priv_usu === 2));
-  const datosAlumnos = contarAsistencias(asistenciasFiltradas.filter(a => a.priv_usu === 1));
+  const datosPorEdificio = asistenciasFiltradas.reduce((acc, cur) => {
+    const key = cur.edificio;
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
 
-  function contarAsistencias(arr) {
-    const conteo = {};
-    arr.forEach(a => {
-      const clave = `${a.nombre_aula} - ${a.edificio}`;
-      conteo[clave] = (conteo[clave] || 0) + 1;
-    });
-    return Object.keys(conteo).map(key => ({ aula: key, asistencias: conteo[key] }));
-  }
+  const datosEdificio = Object.entries(datosPorEdificio).map(([key, value]) => ({ 
+    edificio: key, 
+    clases: value 
+  }));
 
-  const descargarLista = () => {
+  const descargarListaPDF = async () => {
     if (!filtroFecha || !filtroGrupo) {
-      return alert("Debes seleccionar una fecha y un grupo para descargar la lista.");
+      alert("Debes seleccionar una fecha y un grupo para descargar la lista.");
+      return;
     }
 
     const alumnos = asistenciasFiltradas.filter(a => a.priv_usu === 1);
     const maestro = asistenciasFiltradas.find(a => a.priv_usu === 2);
 
     if (!alumnos.length && !maestro) {
-      return alert("No hay registros de asistencia para ese filtro.");
+      alert("No hay registros de asistencia para ese filtro.");
+      return;
     }
 
-    const ventana = window.open("", "_blank");
-    ventana.document.write("<h1>Lista de Asistencia</h1>");
-    ventana.document.write(`<p>Fecha: ${filtroFecha}</p>`);
-    ventana.document.write(`<p>Grupo: ${filtroGrupo}</p>`);
+    try {
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text("Lista de Asistencia", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Fecha: ${filtroFecha}`, 20, 30);
+      doc.text(`Grupo: ${filtroGrupo}`, 20, 40);
 
-    if (maestro) {
-      ventana.document.write("<h3>Maestro:</h3>");
-      ventana.document.write(`<p>${maestro.nombre_usu} ${maestro.ap_usu} ${maestro.am_usu} - ${maestro.no_empleado}</p>`);
+      if (maestro) {
+        doc.text(`Maestro: ${maestro.nombre_usu} ${maestro.ap_usu} ${maestro.am_usu} - ${maestro.no_empleado}`, 20, 50);
+      }
+
+      const agrupado = {};
+      alumnos.forEach(a => {
+        const key = `${a.nombre_aula} - ${a.edificio}`;
+        if (!agrupado[key]) agrupado[key] = [];
+        agrupado[key].push(a);
+      });
+
+      let firstPage = true;
+      for (const aulaEdificio in agrupado) {
+        if (!firstPage) doc.addPage();
+        firstPage = false;
+        doc.setFontSize(14);
+        doc.text(`Aula - Edificio: ${aulaEdificio}`, 20, 60);
+        autoTable(doc, {
+          startY: 70,
+          head: [["Nombre", "Matrícula", "Entrada", "Salida"]],
+          body: agrupado[aulaEdificio].map(a => [
+            `${a.nombre_usu} ${a.ap_usu} ${a.am_usu}`,
+            a.matricula,
+            a.hora_entrada,
+            a.hora_salida || "No registrada"
+          ]),
+          styles: {
+            cellPadding: 5,
+            fontSize: 10,
+            valign: 'middle'
+          },
+          headStyles: {
+            fillColor: '#4a6ef5',
+            textColor: 'white',
+            fontStyle: 'bold'
+          },
+          alternateRowStyles: {
+            fillColor: '#f8fafc'
+          }
+        });
+      }
+
+      doc.save(`asistencia_${filtroGrupo}_${filtroFecha}.pdf`);
+    } catch (error) {
+      console.error("Error al generar PDF:", error);
+      alert("Error al generar el documento PDF");
     }
-
-    ventana.document.write("<h3>Alumnos:</h3>");
-    ventana.document.write("<table border='1' style='border-collapse: collapse; width: 100%;'><thead><tr><th>Nombre</th><th>Matrícula</th><th>Aula</th><th>Entrada</th></tr></thead><tbody>");
-    alumnos.forEach(a => {
-      ventana.document.write(`<tr>
-        <td>${a.nombre_usu} ${a.ap_usu} ${a.am_usu}</td>
-        <td>${a.matricula}</td>
-        <td>${a.nombre_aula}</td>
-        <td>${a.hora_entrada}</td>
-      </tr>`);
-    });
-    ventana.document.write("</tbody></table>");
-    ventana.print();
-    ventana.close();
   };
 
-  const calcularClasesEfectivas = () => {
-    if (!totalClases || !inicioCuatri || !finCuatri || !filtroGrupo) {
-      return alert("Completa todos los campos para calcular.");
+  const imprimirLista = () => {
+    const nuevaVentana = window.open("", "_blank");
+    if (!nuevaVentana) return;
+    
+    nuevaVentana.document.write(`
+      <html>
+        <head>
+          <title>Lista de Asistencia</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            h1, h2, h3 { color: #1e3a8a; }
+            table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #4a6ef5; color: white; }
+            tr:nth-child(even) { background-color: #f2f2f2; }
+            .header { text-align: center; margin-bottom: 20px; }
+            .info { margin-bottom: 15px; }
+            @media print {
+              body { padding: 0; margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Lista de Asistencia</h1>
+            <div class="info">
+              <p><strong>Fecha:</strong> ${filtroFecha}</p>
+              <p><strong>Grupo:</strong> ${filtroGrupo}</p>
+    `);
+
+    const maestro = asistenciasFiltradas.find(a => a.priv_usu === 2);
+    if (maestro) {
+      nuevaVentana.document.write(`
+        <p><strong>Maestro:</strong> ${maestro.nombre_usu} ${maestro.ap_usu} ${maestro.am_usu} - ${maestro.no_empleado}</p>
+      `);
     }
 
-    fetch(`http://localhost:3001/api/asistencias/reportes?grupo=${filtroGrupo}&fechaInicio=${inicioCuatri}&fechaFin=${finCuatri}`)
-      .then(res => res.json())
-      .then(data => {
-        const fechasUnicas = new Set(data.map(a => a.fecha));
-        setClasesEfectivas(fechasUnicas.size);
+    nuevaVentana.document.write(`
+          </div>
+        </div>
+    `);
+
+    const agrupado = {};
+    asistenciasFiltradas.filter(a => a.priv_usu === 1).forEach(a => {
+      const key = `${a.nombre_aula} - ${a.edificio}`;
+      if (!agrupado[key]) agrupado[key] = [];
+      agrupado[key].push(a);
+    });
+
+    Object.entries(agrupado).forEach(([key, alumnos]) => {
+      nuevaVentana.document.write(`
+        <h2>${key}</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Matrícula</th>
+              <th>Entrada</th>
+              <th>Salida</th>
+            </tr>
+          </thead>
+          <tbody>
+      `);
+
+      alumnos.forEach(a => {
+        nuevaVentana.document.write(`
+          <tr>
+            <td>${a.nombre_usu} ${a.ap_usu} ${a.am_usu}</td>
+            <td>${a.matricula}</td>
+            <td>${a.hora_entrada}</td>
+            <td>${a.hora_salida || "No registrada"}</td>
+          </tr>
+        `);
       });
+
+      nuevaVentana.document.write(`
+          </tbody>
+        </table>
+      `);
+    });
+
+    nuevaVentana.document.write(`
+          <button class="no-print" onclick="window.print()" style="
+            background: #4a6ef5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 20px auto;
+            display: block;
+            cursor: pointer;
+            border-radius: 5px;
+          ">Imprimir</button>
+        </body>
+      </html>
+    `);
+
+    nuevaVentana.document.close();
   };
 
   const porcentaje = totalClases > 0 ? Math.round((clasesEfectivas / totalClases) * 100) : 0;
@@ -105,102 +239,97 @@ const Reportes = () => {
   return (
     <div className="dashboard-administrador">
       <MenuAdmin />
-      <main className="contenido-administrador">
-        <br /><br /><br /><br /><br /><br /><br /><br /> <br /><br /><br /><br />
-        <h1 className="titulo-dispositivos">Reportes de Asistencias</h1>
-
-        <div className="filtros">
-          <input
-            type="date"
-            value={filtroFecha}
-            onChange={e => setFiltroFecha(e.target.value)}
-          />
-          <input
-            list="listaGrupos"
-            placeholder="Filtrar por grupo (solo alumnos)"
-            value={filtroGrupo}
-            onChange={e => setFiltroGrupo(e.target.value)}
-          />
-          <datalist id="listaGrupos">
-            {grupos.map((g, index) => (
-              <option key={index} value={g} />
-            ))}
-          </datalist>
-          <button onClick={descargarLista} className="btn-imprimir">Descargar lista de asistencia</button>
+      <main className="contenido-administrador reportes-container">
+        <div className="reportes-header">
+          <h1>Reportes de Asistencias</h1>
+          <p>Genera reportes y visualiza estadísticas de asistencia</p>
         </div>
 
-        <div className="contenedor-reportes">
-          <div className="reporte-seccion">
-            <h2>Asistencias Maestros</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={datosMaestros}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="aula" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="asistencias" fill="#8884d8" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-
-          <div className="reporte-seccion">
-            <h2>Asistencias Alumnos</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={datosAlumnos}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="aula" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="asistencias" fill="#82ca9d" />
-              </BarChart>
-            </ResponsiveContainer>
+        <div className="filtros-container">
+          <div className="filtros">
+            <div className="filtro-group">
+              <label htmlFor="fecha">Fecha:</label>
+              <input
+                id="fecha"
+                type="date"
+                value={filtroFecha}
+                onChange={e => setFiltroFecha(e.target.value)}
+              />
+            </div>
+            
+            <div className="filtro-group">
+              <label htmlFor="grupo">Grupo:</label>
+              <input
+                id="grupo"
+                list="listaGrupos"
+                placeholder="Selecciona un grupo"
+                value={filtroGrupo}
+                onChange={e => setFiltroGrupo(e.target.value)}
+              />
+              <datalist id="listaGrupos">
+                {grupos.map((g, index) => (
+                  <option key={index} value={g} />
+                ))}
+              </datalist>
+            </div>
+            
+            <div className="filtro-actions">
+              <button 
+                className="btn-descargar"
+                onClick={descargarListaPDF}
+                disabled={isLoading}
+              >
+                {isLoading ? "Generando..." : "Descargar PDF"}
+              </button>
+              <button 
+                className="btn-imprimir"
+                onClick={imprimirLista}
+                disabled={isLoading}
+              >
+                Imprimir Lista
+              </button>
+            </div>
           </div>
         </div>
 
-        <hr />
-        <h2>Control de Clases del Cuatrimestre</h2>
-        <div className="filtros">
-          <input
-            type="number"
-            placeholder="Total de clases programadas"
-            value={totalClases}
-            onChange={e => setTotalClases(e.target.value)}
-          />
-          <input
-            type="date"
-            value={inicioCuatri}
-            onChange={e => setInicioCuatri(e.target.value)}
-            placeholder="Fecha de inicio"
-          />
-          <input
-            type="date"
-            value={finCuatri}
-            onChange={e => setFinCuatri(e.target.value)}
-            placeholder="Fecha de cierre"
-          />
-          <input
-            list="listaGrupos"
-            placeholder="Grupo"
-            value={filtroGrupo}
-            onChange={e => setFiltroGrupo(e.target.value)}
-          />
-          <button onClick={calcularClasesEfectivas} className="btn-imprimir">Calcular</button>
+        <div className="graficas-container">
+          <div className="grafica-card">
+            <h3 className="grafica-title">Asistencias por Edificio</h3>
+            <div className="grafica-wrapper">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={datosEdificio}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="edificio" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="clases" fill="#4a6ef5" name="Clases" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         </div>
 
-        {totalClases > 0 && (
-          <div className="grafica-cuatri">
-            <h3>Porcentaje de clases efectivas: {porcentaje}%</h3>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={[{ nombre: filtroGrupo || "Grupo", porcentaje }]}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="nombre" />
-                <YAxis domain={[0, 100]} />
-                <Tooltip />
-                <Bar dataKey="porcentaje" fill="#ffc658" />
-              </BarChart>
-            </ResponsiveContainer>
+        <div className="resumen-container">
+          <h3 className="resumen-title">Resumen de Asistencias</h3>
+          <div className="resumen-grid">
+            <div className="resumen-item">
+              <div className="resumen-value">{asistenciasFiltradas.length}</div>
+              <div className="resumen-label">Registros totales</div>
+            </div>
+            <div className="resumen-item">
+              <div className="resumen-value">{totalClases}</div>
+              <div className="resumen-label">Clases programadas</div>
+            </div>
+            <div className="resumen-item">
+              <div className="resumen-value">{clasesEfectivas}</div>
+              <div className="resumen-label">Clases efectivas</div>
+            </div>
+            <div className="resumen-item">
+              <div className="resumen-value">{porcentaje}%</div>
+              <div className="resumen-label">Efectividad</div>
+            </div>
           </div>
-        )}
+        </div>
       </main>
     </div>
   );

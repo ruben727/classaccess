@@ -3,10 +3,13 @@ import axios from "axios";
 import { QRCodeSVG } from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import "../styles/alumno.css";
+import "../styles/codigoAlumno.css";
 import MenuAlumno from "./menuAlumno";
 
 const Codigo = () => {
   const [alumno, setAlumno] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,66 +17,82 @@ const Codigo = () => {
     const id_usu = usuario?.id_usu;
 
     if (!id_usu) {
-      console.error("ID de usuario no encontrado en localStorage");
+      setError("No se encontró sesión de usuario");
+      setIsLoading(false);
       return navigate("/");
     }
 
-    axios
-      .get(`http://localhost:3001/api/alumno/${id_usu}`)
-      .then((res) => {
-        setAlumno(res.data);
-      })
-      .catch((err) => {
+    const fetchAlumno = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/alumno/${id_usu}`);
+        setAlumno(response.data);
+      } catch (err) {
         console.error("Error al obtener alumno:", err);
-      });
+        setError("Error al cargar los datos del alumno");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAlumno();
   }, [navigate]);
 
-  if (!alumno) {
+  if (isLoading) {
     return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <p>Cargando información del alumno...</p>
+      <div className="alumno-container">
+        <MenuAlumno />
+        <div className="contenido-alumno">
+          <div className="cargando-qr">
+            <p>Cargando información del alumno...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alumno-container">
+        <MenuAlumno />
+        <div className="contenido-alumno">
+          <div className="error-qr">
+            <p>{error}</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
-      {/* Sidebar */}
+    <div className="alumno-container">
       <MenuAlumno />
-
-      {/* Contenido principal */}
-      <div style={{ flex: 1, padding: "40px", backgroundColor: "#f5f6f8" }}>
-        <h2 style={{ textAlign: "center", fontSize: "1.8rem" }}>Código QR</h2>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 20,
-            marginTop: 40,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            borderRadius: "10px",
-            backgroundColor: "#fff",
-            maxWidth: "400px",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
-          <h3 style={{ fontSize: "1.2rem", marginBottom: 10 }}>
-            <p>Nombre: {alumno.nombre_usu} {alumno.ap_usu}</p>
-          </h3>
-          <p>Matrícula: {alumno.matricula}</p>
-          <div style={{ width: "100%", maxWidth: "300px" }}>
-            <QRCodeSVG
-              value={String(alumno.matricula)}
-              size={256}
-              style={{ width: "100%", height: "auto" }}
-            />
+      
+      <main className="contenido-alumno">
+        <h1 className="titulo-qr">Código QR de Identificación</h1>
+        
+        <div className="contenedor-qr">
+          <div className="tarjeta-qr">
+            <h2 className="nombre-alumno">
+              {alumno.nombre_usu} {alumno.ap_usu}
+            </h2>
+            <p className="matricula">{alumno.matricula}</p>
+            
+            <div className="codigo-qr-container">
+              <QRCodeSVG
+                value={String(alumno.matricula)}
+                size={256}
+                className="codigo-qr"
+                includeMargin={true}
+                level="H" // Alto nivel de corrección de errores
+              />
+            </div>
+            
+            <p className="instrucciones">
+              Muestra este código QR para registrar tu asistencia
+            </p>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

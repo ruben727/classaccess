@@ -1,0 +1,99 @@
+/* Estilos para el Calendario - manteniendo tu estructura HTML */
+.alumno-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.contenido-alumno {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #f5f6f8;
+    min-height: 100vh;
+}
+
+.contenido-alumno h2 {
+    color: #1f2937;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Estilos para la tarjeta del calendario */
+.contenido-alumno > div {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid #e5e7eb;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Estilos para la imagen del calendario */
+.contenido-alumno img {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .contenido-alumno {
+        padding: 25px;
+    }
+    
+    .contenido-alumno h2 {
+        font-size: 1.7rem;
+    }
+    
+    .contenido-alumno > div {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenido-alumno {
+        padding: 20px;
+    }
+    
+    .contenido-alumno h2 {
+        font-size: 1.6rem;
+        margin-bottom: 15px;
+    }
+    
+    .contenido-alumno > div {
+        padding: 18px;
+        margin-bottom: 25px;
+    }
+    
+    .contenido-alumno img {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .contenido-alumno {
+        padding: 15px;
+    }
+    
+    .contenido-alumno h2 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .contenido-alumno > div {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+}

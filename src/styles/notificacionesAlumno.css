@@ -1,0 +1,184 @@
+/* notificacionesAlumno.css */
+
+/* Contenedor principal - Específico para alumno */
+.alumno-notificaciones-container {
+  display: flex;
+  flex-direction: row; /* Asegura disposición horizontal en desktop */
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+
+/* Contenedor de contenido - Específico para alumno */
+.alumno-noti-contenedor {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 280px; /* Ajuste para el menú lateral */
+  transition: all 0.3s ease;
+  width: calc(100% - 280px); /* Calcula el ancho restante */
+}
+
+/* Título - Específico para alumno */
+.alumno-noti-titulo {
+  color: #2d3748;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.alumno-noti-titulo::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #4299e1;
+}
+
+/* Mensajes de estado - Específico para alumno */
+.alumno-noti-cargando,
+.alumno-noti-sin-datos {
+  text-align: center;
+  color: #4a5568;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenedor de tabla - Específico para alumno */
+.alumno-noti-tabla-contenedor {
+  margin-top: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: auto;
+}
+
+/* Tabla - Específico para alumno */
+.alumno-noti-tabla {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+/* Cabeceras - Específico para alumno */
+.alumno-noti-cabecera {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  font-weight: 600;
+  background-color: #2b6cb0;
+  color: white;
+  font-size: 0.95rem;
+}
+
+/* Filas - Específico para alumno */
+.alumno-noti-fila {
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.alumno-noti-fila:hover {
+  background-color: #ebf8ff;
+}
+
+/* Celdas - Específico para alumno */
+.alumno-noti-mensaje,
+.alumno-noti-fecha {
+  padding: 1rem 1.5rem;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.alumno-noti-mensaje {
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  cursor: pointer;
+}
+
+.alumno-noti-fecha {
+  white-space: nowrap;
+  color: #718096;
+}
+
+/* Filas alternas - Específico para alumno */
+.alumno-noti-tabla tbody tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Responsive Design - Específico para alumno */
+@media (max-width: 1200px) {
+  .alumno-noti-contenedor {
+    padding: 1.8rem;
+    margin-left: 240px;
+    width: calc(100% - 240px);
+  }
+}
+
+@media (max-width: 992px) {
+  .alumno-notificaciones-container {
+    flex-direction: column; /* Cambia a vertical en tablet/móvil */
+  }
+  
+  .alumno-noti-contenedor {
+    margin-left: 0;
+    padding: 1.5rem;
+    width: 100%;
+  }
+  
+  .alumno-noti-titulo {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .alumno-noti-contenedor {
+    padding: 1.2rem;
+  }
+  
+  .alumno-noti-titulo {
+    font-size: 1.5rem;
+  }
+  
+  .alumno-noti-cabecera,
+  .alumno-noti-mensaje,
+  .alumno-noti-fecha {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .alumno-noti-contenedor {
+    padding: 1rem;
+  }
+  
+  .alumno-noti-titulo {
+    font-size: 1.4rem;
+  }
+  
+  .alumno-noti-titulo::after {
+    width: 60px;
+  }
+  
+  .alumno-noti-cargando,
+  .alumno-noti-sin-datos {
+    font-size: 1rem;
+  }
+}

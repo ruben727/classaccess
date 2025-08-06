@@ -3,10 +3,12 @@ import axios from "axios";
 import { QRCodeSVG } from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import "../styles/maestro.css";
+import "../styles/codigoQR.css";
 import MenuMaestro from "./menuMaestro";
 
 const Codigo_QR = () => {
   const [profesor, setProfesor] = useState(null);
+  const [cargando, setCargando] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,49 +18,53 @@ const Codigo_QR = () => {
       return;
     }
 
+    setCargando(true);
     axios.get(`http://localhost:3001/api/profesor/${id_usu}`)
       .then((res) => {
         setProfesor(res.data);
+        setCargando(false);
       })
       .catch((err) => {
         console.error("Error al obtener profesor:", err);
+        setCargando(false);
       });
   }, [navigate]);
 
-  if (!profesor) return <p style={{ textAlign: "center" }}>Cargando QR...</p>;
-
   return (
-    <div className="dashboard-alumno">
+    <div className="dashboard-maestro">
       <MenuMaestro />
-
-      <div style={{ padding: 20, width: "100%", maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
-        <h2 style={{ fontSize: "1.8rem" }}>Código QR</h2>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: 20,
-            marginBottom: 40,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-            borderRadius: "10px",
-            backgroundColor: "#fff",
-          }}
-        >
-          <h3 style={{ fontSize: "1.2rem", marginBottom: 10 }}>
-            {profesor.nombre_usu} {profesor.ap_usu}
-          </h3>
-          <div style={{ width: "100%", maxWidth: "300px" }}>
-            <QRCodeSVG
-              value={String(profesor.no_empleado)}
-              size={256}
-              style={{ width: "100%", height: "auto" }}
-            />
+      
+      <main className="contenido-maestro">
+        {cargando ? (
+          <div className="cargando-qr">
+            <p>Cargando código QR...</p>
           </div>
-        </div>
-      </div>
+        ) : (
+          <div className="contenedor-qr">
+            <h1 className="titulo-qr">Código QR de Identificación</h1>
+            
+            <div className="tarjeta-qr">
+              <h2 className="nombre-profesor">
+                {profesor.nombre_usu} {profesor.ap_usu} {profesor.am_usu}
+              </h2>
+              <p className="numero-empleado">No. Empleado: {profesor.no_empleado}</p>
+              
+              <div className="codigo-qr-container">
+                <QRCodeSVG
+                  value={String(profesor.no_empleado)}
+                  size={256}
+                  className="codigo-qr"
+                  includeMargin={true}
+                />
+              </div>
+              
+              <p className="instrucciones">
+                Acerque su codigo al lector para registrar su entrada 
+              </p>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

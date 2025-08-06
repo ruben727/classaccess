@@ -1,0 +1,111 @@
+/* Estilos para el código QR */
+.titulo-qr {
+    font-size: 2rem;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.contenedor-qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.tarjeta-qr {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    text-align: center;
+}
+
+.nombre-profesor {
+    font-size: 1.5rem;
+    color: #0ca73f;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.numero-empleado {
+    font-size: 1.1rem;
+    color: #4b5563;
+    margin-bottom: 1.5rem;
+}
+
+.codigo-qr-container {
+    margin: 1.5rem auto;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    display: inline-block;
+    border: 1px solid #e5e7eb;
+}
+
+.codigo-qr {
+    width: 100%;
+    height: auto;
+    max-width: 256px;
+}
+
+.instrucciones {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-top: 1.5rem;
+    font-style: italic;
+}
+
+.cargando-qr {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .titulo-qr {
+        font-size: 1.7rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .tarjeta-qr {
+        padding: 1.5rem;
+    }
+    
+    .nombre-profesor {
+        font-size: 1.3rem;
+    }
+    
+    .codigo-qr-container {
+        margin: 1rem auto;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo-qr {
+        font-size: 1.5rem;
+    }
+    
+    .tarjeta-qr {
+        padding: 1.2rem;
+    }
+    
+    .nombre-profesor {
+        font-size: 1.2rem;
+    }
+    
+    .codigo-qr {
+        max-width: 220px;
+    }
+    
+    .instrucciones {
+        font-size: 0.9rem;
+    }
+}
