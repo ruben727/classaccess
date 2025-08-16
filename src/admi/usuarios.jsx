@@ -4,12 +4,20 @@ import { useNavigate } from "react-router-dom";
 import MenuAdmin from "./menuAdmi";
 
 const Usuarios = () => {
+
   const [usuarios, setUsuarios] = useState([]);
   const [tipoFiltro, setTipoFiltro] = useState("todos");
   const [busqueda, setBusqueda] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+          const usuario = localStorage.getItem("usuario");
+          if (!usuario) {
+              navigate("/"); // Redirige al login si no hay sesión
+          }
+      }, [navigate]);
 
   useEffect(() => {
     const fetchUsuarios = async () => {

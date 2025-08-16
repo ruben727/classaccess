@@ -4,10 +4,20 @@ import MenuAdmin from "./menuAdmi";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import "../styles/reportes.css";
+import { useNavigate } from "react-router-dom";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const Reportes = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+    if (!usuario) {
+      navigate("/");
+    }
+  }, [navigate]);
+  
   const [asistencias, setAsistencias] = useState([]);
   const [grupos, setGrupos] = useState([]);
   const [filtroFecha, setFiltroFecha] = useState("");

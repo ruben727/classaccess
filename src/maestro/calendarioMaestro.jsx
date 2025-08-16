@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../styles/maestro.css';
 import '../styles/calendario.css';
 import MenuMaestro from "./menuMaestro";
 
 const CalendarioMaestro = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const usuario = localStorage.getItem("usuario");
+        if (!usuario) {
+            navigate("/"); // Redirige al login si no hay sesión
+        }
+    }, [navigate]);
     return (
         <div className="dashboard-maestro">
             <MenuMaestro />

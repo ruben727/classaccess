@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MenuMaestro from "./menuMaestro";
 import "../styles/notificacionesAlumno.css";
+import { useNavigate } from "react-router-dom";
 
 const NotificacionesMaestro = () => {
+  const navigate = useNavigate();
+
+    useEffect(() => {
+        const usuario = localStorage.getItem("usuario");
+        if (!usuario) {
+            navigate("/"); // Redirige al login si no hay sesión
+        }
+    }, [navigate]);
+
   const [notificaciones, setNotificaciones] = useState([]);
   const [cargando, setCargando] = useState(true);
 

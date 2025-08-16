@@ -2,9 +2,18 @@ import React, { useEffect, useState } from "react";
 import MenuAdmin from "./menuAdmi";
 import "../styles/administrador.css";
 import "../styles/usuarios.css";
-import "../styles/aulas.css";
+import "../styles/aulas.css"
+import { useNavigate } from "react-router-dom";
 
 const Aulas = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+    if(!usuario) {
+      navigate("/");
+    }
+  }, [navigate]);
+  
   const [aulas, setAulas] = useState([]);
   const [dispositivos, setDispositivos] = useState([]);
   const [nombreAula, setNombreAula] = useState("");

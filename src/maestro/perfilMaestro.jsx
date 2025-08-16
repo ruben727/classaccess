@@ -3,8 +3,18 @@ import "../styles/maestro.css";
 import "../styles/perfilMaestro.css";
 import axios from "axios";
 import MenuMaestro from "./menuMaestro";
+import { useNavigate } from "react-router-dom";
 
 const PerfilMaestro = () => {
+  const navigate = useNavigate();
+
+    useEffect(() => {
+        const usuario = localStorage.getItem("usuario");
+        if (!usuario) {
+            navigate("/"); // Redirige al login si no hay sesión
+        }
+    }, [navigate]);
+
   const [maestro, setMaestro] = useState({});
   const [cargando, setCargando] = useState(true);
 

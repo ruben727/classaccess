@@ -2,10 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/maestro.css";
 import "../styles/historialMaestro.css";
-
 import MenuAlumno from "./menuAlumno";
+import { useNavigate } from "react-router-dom";
 
 const HistorialMaestros = () => {
+  const navigate = useNavigate();
+  
+
+    useEffect(() => {
+        const usuario = localStorage.getItem("usuario");
+        if (!usuario) {
+            navigate("/"); // Redirige al login si no hay sesión
+        }
+    }, [navigate]);
+
   const [historial, setHistorial] = useState([]);
   const [cargando, setCargando] = useState(true);
   const id_usu = localStorage.getItem("id_usu");

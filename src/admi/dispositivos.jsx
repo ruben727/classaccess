@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MenuAdmin from "./menuAdmi";
 import "../styles/dispositivos.css";
+import { useNavigate } from "react-router-dom";
 
 const Dispositivos = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+            const usuario = localStorage.getItem("usuario");
+            if(!usuario) {
+              navigate("/");
+            }
+  }, [navigate]);
+
   const [dispositivos, setDispositivos] = useState([]);
   const [nuevoDispositivo, setNuevoDispositivo] = useState("");
   const [loading, setLoading] = useState(true);

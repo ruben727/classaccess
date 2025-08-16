@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuAdmin from "./menuAdmi";
 import "../styles/notificaciones.css";
+import { useNavigate } from "react-router-dom";
 
 const EnviarNotificaciones = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+    if(!usuario) {
+      navigate("/");
+    }
+  }, [navigate]);
+  
   const [mensaje, setMensaje] = useState("");
   const [destino, setDestino] = useState("1_2");
   const [enviado, setEnviado] = useState(false);

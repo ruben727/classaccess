@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import MenuAdmin from "./menuAdmi";
 import "../styles/asistencia.css";
+import { useNavigate } from "react-router-dom";
 
 const Asistencias = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+            const usuario = localStorage.getItem("usuario");
+            if (!usuario) {
+                navigate("/"); // Redirige al login si no hay sesión
+            }
+        }, [navigate]);
+        
   const [asistencias, setAsistencias] = useState([]);
   const [fecha, setFecha] = useState("");
   const [busqueda, setBusqueda] = useState("");
