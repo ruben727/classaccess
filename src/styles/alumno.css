@@ -25,7 +25,7 @@ html, body {
 /* Sidebar - Versión azul */
 .sidebar-alumno {
     width: 280px;
-    background-color: #2563eb; /* Azul */
+    background-color:#232e56; /* Azul */
     color: white;
     padding: 20px 15px;
     display: flex;

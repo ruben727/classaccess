@@ -36,7 +36,7 @@ const RegistroAlumno = () => {
   };
 
   const validarPassword = (pwd) => {
-    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};:'",.<>?/\\|`~]).{8,}$/;
     return regex.test(pwd);
   };
 
@@ -63,9 +63,10 @@ const RegistroAlumno = () => {
     }
 
     if (!validarPassword(password)) {
-      setMensaje("La contraseña debe tener al menos 8 caracteres, incluyendo letras y números.");
+      setMensaje("La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un caracter especial.");
       return;
     }
+
 
     const payload = {
       nombre,

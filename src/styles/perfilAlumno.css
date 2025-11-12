@@ -1,198 +1,170 @@
-/* Estilos para el perfil */
-.titulo-perfil {
-    font-size: 2rem;
-    color: #1f2937;
-    margin-bottom: 1.5rem;
-    text-align: center;
+.card-perfil {
+    /* Dimensiones de la Credencial */
+    background: linear-gradient(135deg, #244e7c, #232e56); /* Degradado Azul UTEQ */
+    color: white; /* Texto blanco sobre fondo oscuro */
+    border-radius: 20px; /* Esquinas más marcadas */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Sombra fuerte para resaltar */
+    padding: 0;
+    max-width: 500px; /* Ancho típico de una credencial */
+    height: auto; /* Altura automática */
+    margin: 30px auto;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
 }
 
-.card-perfil {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-    padding: 2rem;
+.contenido-alumno {
+    flex-grow: 1;
+    padding: 40px 20px;
+    background-color: #f4f7f6; 
+}
+
+.titulo-perfil {
+    font-size: 2.2rem;
+    color: #232e56; 
+    margin-bottom: 30px;
+    border-bottom: 3px solid #244e7c; 
+    padding-bottom: 10px;
+    font-weight: 600;
     max-width: 800px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* --- ESTILO DE CREDENCIAL (Modo NO-Edición) --- */
+
+.card-perfil {
+    /* Dimensiones de la Credencial */
+    background: linear-gradient(135deg, #244e7c, #232e56); /* Degradado Azul UTEQ */
+    color: white; /* Texto blanco sobre fondo oscuro */
+    border-radius: 15px; /* Esquinas más marcadas */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Sombra fuerte para resaltar */
+    padding: 30px;
+    max-width: 450px; /* Ancho típico de una credencial */
+    height: auto; /* Altura automática */
+    margin: 30px auto;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.card-perfil:hover {
+    transform: translateY(-5px) scale(1.02); /* Efecto 3D al pasar el ratón */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
 .perfil-header {
-    border-bottom: 1px solid #e5e7eb;
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Separador blanco semi-transparente */
+    padding-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .perfil-header h2 {
+    color: white; /* Título en blanco */
     font-size: 1.5rem;
-    color: #2563eb;
+    font-weight: 700;
 }
 
-.perfil-info {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-}
-
-.info-item {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.info-label {
-    font-weight: 600;
-    color: #374151;
-    width: 120px;
-    margin-right: 1rem;
-}
-
-.info-value {
-    color: #4b5563;
-    flex: 1;
-}
-
-.cargando {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-size: 1.2rem;
-    color: #4b5563;
-}
-
-/* Responsive para perfil */
-@media (max-width: 768px) {
-    .card-perfil {
-        padding: 1.5rem;
-    }
-    
-    .titulo-perfil {
-        font-size: 1.7rem;
-    }
-    
-    .perfil-header h2 {
-        font-size: 1.3rem;
-    }
-    
-    .info-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-    }
-    
-    .info-label {
-        width: 100%;
-        margin-right: 0;
-    }
-}
-
-@media (max-width: 576px) {
-    .card-perfil {
-        padding: 1rem;
-        border-radius: 8px;
-    }
-    
-    .titulo-perfil {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-    
-    .perfil-info {
-        gap: 1rem;
-    }
-}
-
-
-
-/* Estilos para el formulario de edición */
-.form-editar {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.form-group label {
-  font-weight: bold;
-  color: #333;
-}
-
-.form-group input {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.btn-editar, .btn-guardar, .btn-cancelar {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
+/* El botón de editar se mantiene simple para no competir con el diseño de credencial */
 .btn-editar {
-  background-color: #4CAF50;
-  color: white;
+    background-color: white;
+    color: #244e7c; /* Color de texto Azul UTEQ */
+    padding: 8px 15px;
+    font-size: 0.9rem;
 }
 
 .btn-editar:hover {
-  background-color: #45a049;
+    background-color: #f0f0f0;
+    transform: translateY(-1px);
 }
 
-.btn-guardar {
-  background-color: #2196F3;
-  color: white;
-  align-self: flex-end;
-  margin-top: 10px;
+/* --- Organización de los Campos en la Credencial --- */
+
+.perfil-info {
+    /* Cambiamos a una sola columna para la credencial, o un layout mixto */
+    display: flex; 
+    flex-direction: column;
+    gap: 15px; 
 }
 
-.btn-guardar:hover {
-  background-color: #0b7dda;
+.info-item {
+    padding: 0; /* Eliminamos el padding y el fondo para el look de credencial */
+    border-left: none; 
+    background-color: transparent; 
+    border-radius: 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2); /* Separador de campos sutil */
+    padding-bottom: 5px;
 }
 
-.btn-guardar:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+.info-label {
+    color: #a0c3ff; /* Un azul claro para las etiquetas */
+    font-weight: 400;
+    font-size: 0.8rem;
+    margin-bottom: 0px;
+}
+
+.info-value {
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
+/* --- MODIFICACIÓN ESPECÍFICA DE LAYOUT DE CREDENCIAL --- */
+
+/* Puedes usar Flexbox para poner Matricula/Grupo y Correo/RFID en la misma línea si quieres un diseño más compacto */
+.perfil-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+/* Agrupamos algunos elementos para que queden lado a lado como en una credencial real */
+.perfil-info .info-item:nth-child(4), /* Matrícula */
+.perfil-info .info-item:nth-child(5) { /* Grupo */
+    grid-column: span 1; 
+}
+
+/* Si quieres que 2 campos aparezcan lado a lado en la credencial: */
+/* .perfil-info { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+} 
+.info-item:nth-child(1), .info-item:nth-child(2), .info-item:nth-child(3) { 
+    grid-column: span 2; 
+}
+*/
+
+/* --- VISTA DE EDICIÓN (Se mantiene funcional, pero usa colores UTEQ) --- */
+
+.form-editar {
+    max-width: 800px; /* La tarjeta de edición vuelve a ser más ancha */
+    margin: 0 auto;
+}
+
+.form-editar input:focus {
+    border-color: #244e7c; 
+    box-shadow: 0 0 0 3px rgba(36, 78, 124, 0.25); 
 }
 
 .btn-cancelar {
-  background-color: #f44336;
-  color: white;
-  margin-left: 10px;
+    background-color: #71706f; 
+    color: white;
 }
 
 .btn-cancelar:hover {
-  background-color: #da190b;
+    background-color: #5d5c5b;
 }
 
-.message {
-  padding: 10px 15px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  font-weight: bold;
+.btn-guardar {
+    background-color: #244e7c; 
+    color: white;
 }
 
-.message.success {
-  background-color: #dff0d8;
-  color: #3c763d;
+.btn-guardar:hover {
+    background-color: #1a395c;
 }
 
-.message.error {
-  background-color: #f2dede;
-  color: #a94442;
+.btn-guardar:disabled {
+    background-color: #a7b7c9;
 }
 
-.perfil-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}

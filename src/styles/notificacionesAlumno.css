@@ -1,184 +1,196 @@
-/* notificacionesAlumno.css */
+/* notificacionesAlumno.css - Diseño Final con Paleta de Colores UTEQ */
 
-/* Contenedor principal - Específico para alumno */
+/* --- Colores de la Paleta UTEQ ---
+   Azul Principal (Menú/Botón): #244d7c
+   Azul Oscuro (Fondo/Detalles): #232e56
+   Gris Oscuro (Detalles/Texto): #71706f
+*/
+
+/* Contenedor principal (Define la estructura del Layout) */
 .alumno-notificaciones-container {
-  display: flex;
-  flex-direction: row; /* Asegura disposición horizontal en desktop */
-  min-height: 100vh;
-  background-color: #f5f7fa;
+    display: flex;
+    flex-direction: row; 
+    min-height: 100vh;
+    background-color: #f5f7fa; /* Fondo claro general */
 }
 
-/* Contenedor de contenido - Específico para alumno */
+/* Contenedor de contenido (El área a la derecha del menú) */
 .alumno-noti-contenedor {
-  flex: 1;
-  padding: 2rem;
-  margin-left: 280px; /* Ajuste para el menú lateral */
-  transition: all 0.3s ease;
-  width: calc(100% - 280px); /* Calcula el ancho restante */
+    flex: 1;
+    padding: 2rem; 
 }
 
-/* Título - Específico para alumno */
+/* --- ESTILOS DE LA VENTANA DE BUZÓN --- */
+
+/* El elemento que simula la "ventana" de la bandeja de entrada */
+.alumno-noti-window {
+    width: 100%;
+    max-width: 900px;
+    height: calc(100vh - 4rem - 4px); /* Mantiene la corrección de altura */
+    min-height: 500px; 
+    
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+/* Barra superior (Similar a la ventana de la imagen, usando Gris Oscuro UTEQ) */
+.alumno-noti-header {
+    background-color: #71706f; /* Gris Oscuro UTEQ */
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    flex-shrink: 0; 
+}
+
+/* Botones de control simulados (colores fijos para simular el OS) */
+.alumno-noti-controls span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-left: 6px;
+}
+.alumno-noti-controls .red { background-color: #244d7c; }
+.alumno-noti-controls .yellow { background-color: #232e56; }
+.alumno-noti-controls .green { background-color: #062cb4; }
+
+/* Contenido de la interfaz */
+.alumno-noti-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título de la sección */
 .alumno-noti-titulo {
-  color: #2d3748;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  font-weight: 600;
-  position: relative;
-  padding-bottom: 10px;
+    color: #232e56; /* Azul Oscuro UTEQ para el título */
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    padding: 1.5rem 1.5rem 0; 
+    flex-shrink: 0;
 }
 
-.alumno-noti-titulo::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: #4299e1;
+/* Contenedor de lista */
+.alumno-noti-list-container {
+    flex-grow: 1; 
+    overflow-y: auto;
+    padding: 0 1.5rem 1.5rem;
 }
 
-/* Mensajes de estado - Específico para alumno */
+/* --- ÍTEM INDIVIDUAL DE LA NOTIFICACIÓN --- */
+
+.alumno-noti-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #edf2f7;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.alumno-noti-item:hover {
+    background-color: #f8fafc; /* Fondo de hover muy sutil */
+}
+
+.alumno-noti-message-info {
+    flex-grow: 1;
+    padding-right: 1rem;
+    overflow: hidden; 
+}
+
+.alumno-noti-subject {
+    font-weight: 600;
+    color: #232e56; /* Azul Oscuro UTEQ para el asunto */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+}
+
+.alumno-noti-body-preview {
+    color: #71706f; /* Gris Oscuro UTEQ para la previsualización */
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.alumno-noti-fecha {
+    color: #a0a0a0; /* Un gris más claro para la fecha */
+    font-size: 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* --- MENSAJES DE ESTADO --- */
 .alumno-noti-cargando,
 .alumno-noti-sin-datos {
-  text-align: center;
-  color: #4a5568;
-  font-size: 1.1rem;
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+    text-align: center;
+    color: #232e56; /* Azul Oscuro UTEQ */
+    font-size: 1.1rem;
+    margin-top: 3rem;
+    padding: 1rem;
+    background-color: #e6e6ee; /* Fondo ligeramente azulado/grisáceo */
+    border-radius: 8px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Contenedor de tabla - Específico para alumno */
-.alumno-noti-tabla-contenedor {
-  margin-top: 2rem;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-x: auto;
+/* --- BOTÓN FLOTANTE (FAB) --- */
+.alumno-noti-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+    background-color: #244d7c; /* Azul Principal UTEQ */
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
 }
 
-/* Tabla - Específico para alumno */
-.alumno-noti-tabla {
-  width: 100%;
-  min-width: 600px;
-  border-collapse: collapse;
+.alumno-noti-fab:hover {
+    background-color: #232e56; /* Azul Oscuro UTEQ en hover */
 }
 
-/* Cabeceras - Específico para alumno */
-.alumno-noti-cabecera {
-  padding: 1rem 1.5rem;
-  text-align: left;
-  font-weight: 600;
-  background-color: #2b6cb0;
-  color: white;
-  font-size: 0.95rem;
-}
-
-/* Filas - Específico para alumno */
-.alumno-noti-fila {
-  transition: background-color 0.2s ease;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.alumno-noti-fila:hover {
-  background-color: #ebf8ff;
-}
-
-/* Celdas - Específico para alumno */
-.alumno-noti-mensaje,
-.alumno-noti-fecha {
-  padding: 1rem 1.5rem;
-  color: #4a5568;
-  font-size: 0.95rem;
-}
-
-.alumno-noti-mensaje {
-  max-width: 600px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  position: relative;
-  cursor: pointer;
-}
-
-.alumno-noti-fecha {
-  white-space: nowrap;
-  color: #718096;
-}
-
-/* Filas alternas - Específico para alumno */
-.alumno-noti-tabla tbody tr:nth-child(even) {
-  background-color: #f8fafc;
-}
-
-/* Responsive Design - Específico para alumno */
-@media (max-width: 1200px) {
-  .alumno-noti-contenedor {
-    padding: 1.8rem;
-    margin-left: 240px;
-    width: calc(100% - 240px);
-  }
+/* --- Responsive Design --- */
+@media (min-width: 992px) {
+    .alumno-noti-fab {
+        right: 30px; 
+    }
 }
 
 @media (max-width: 992px) {
-  .alumno-notificaciones-container {
-    flex-direction: column; /* Cambia a vertical en tablet/móvil */
-  }
-  
-  .alumno-noti-contenedor {
-    margin-left: 0;
-    padding: 1.5rem;
-    width: 100%;
-  }
-  
-  .alumno-noti-titulo {
-    font-size: 1.7rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .alumno-noti-contenedor {
-    padding: 1.2rem;
-  }
-  
-  .alumno-noti-titulo {
-    font-size: 1.5rem;
-  }
-  
-  .alumno-noti-cabecera,
-  .alumno-noti-mensaje,
-  .alumno-noti-fecha {
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 576px) {
-  .alumno-noti-contenedor {
-    padding: 1rem;
-  }
-  
-  .alumno-noti-titulo {
-    font-size: 1.4rem;
-  }
-  
-  .alumno-noti-titulo::after {
-    width: 60px;
-  }
-  
-  .alumno-noti-cargando,
-  .alumno-noti-sin-datos {
-    font-size: 1rem;
-  }
+    .alumno-noti-window {
+        height: auto; 
+        min-height: 600px; 
+        margin-top: 0;
+    }
+    .alumno-noti-fab {
+        bottom: 20px;
+        right: 20px;
+    }
 }
