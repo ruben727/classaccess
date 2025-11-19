@@ -7,18 +7,18 @@ import { useNavigate } from "react-router-dom";
 
 const HistorialMaestros = () => {
   const navigate = useNavigate();
-  
-
-    useEffect(() => {
-        const usuario = localStorage.getItem("usuario");
-        if (!usuario) {
-            navigate("/"); // Redirige al login si no hay sesión
-        }
-    }, [navigate]);
-
   const [historial, setHistorial] = useState([]);
   const [cargando, setCargando] = useState(true);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const registrosPorPagina = 10;
   const id_usu = localStorage.getItem("id_usu");
+
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuario");
+    if (!usuario) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     if (!id_usu) return;
@@ -35,6 +35,28 @@ const HistorialMaestros = () => {
       });
   }, [id_usu]);
 
+  // Calcular índices para la paginación
+  const indiceUltimo = paginaActual * registrosPorPagina;
+  const indicePrimero = indiceUltimo - registrosPorPagina;
+  const registrosActuales = historial.slice(indicePrimero, indiceUltimo);
+  const totalPaginas = Math.ceil(historial.length / registrosPorPagina);
+
+  const cambiarPagina = (numeroPagina) => {
+    setPaginaActual(numeroPagina);
+  };
+
+  const paginaSiguiente = () => {
+    if (paginaActual < totalPaginas) {
+      setPaginaActual(paginaActual + 1);
+    }
+  };
+
+  const paginaAnterior = () => {
+    if (paginaActual > 1) {
+      setPaginaActual(paginaActual - 1);
+    }
+  };
+
   return (
     <div className="dashboard-maestro">
       <MenuAlumno />
@@ -44,6 +66,7 @@ const HistorialMaestros = () => {
         
         {cargando ? (
           <div className="cargando-historial">
+            <div className="spinner-historial"></div>
             <p>Cargando historial...</p>
           </div>
         ) : historial.length === 0 ? (
@@ -51,8 +74,12 @@ const HistorialMaestros = () => {
             <p>No se encontraron registros de asistencia</p>
           </div>
         ) : (
-          <div className="contenedor-tabla">
-            <div className="tabla-responsive">
+          <>
+            <div className="info-registros">
+              <p>Mostrando {indicePrimero + 1} - {Math.min(indiceUltimo, historial.length)} de {historial.length} registros</p>
+            </div>
+
+            <div className="contenedor-tabla">
               <table className="tabla-historial">
                 <thead>
                   <tr>
@@ -64,7 +91,7 @@ const HistorialMaestros = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {historial.map((registro, index) => (
+                  {registrosActuales.map((registro, index) => (
                     <tr key={index}>
                       <td data-label="Fecha">{new Date(registro.fecha).toLocaleDateString('es-MX')}</td>
                       <td data-label="Entrada">{registro.hora_entrada || "-"}</td>
@@ -76,7 +103,29 @@ const HistorialMaestros = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+
+            <div className="paginacion">
+              <button 
+                className="btn-paginacion"
+                onClick={paginaAnterior}
+                disabled={paginaActual === 1}
+              >
+                Anterior
+              </button>
+
+              <span className="pagina-actual">
+                Página {paginaActual} de {totalPaginas}
+              </span>
+
+              <button 
+                className="btn-paginacion"
+                onClick={paginaSiguiente}
+                disabled={paginaActual === totalPaginas}
+              >
+                Siguiente
+              </button>
+            </div>
+          </>
         )}
       </main>
     </div>

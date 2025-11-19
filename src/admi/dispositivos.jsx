@@ -21,7 +21,7 @@ const Dispositivos = () => {
   const obtenerDispositivos = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://servidor-class-access.vercel.app/api/dispositivos");
+      const response = await fetch("http://localhost:3001/api/dispositivos");
       const data = await response.json();
       setDispositivos(data);
       setLoading(false);
@@ -44,7 +44,7 @@ const Dispositivos = () => {
     }
 
     try {
-      const response = await fetch("https://servidor-class-access.vercel.app/api/dispositivos", {
+      const response = await fetch("http://localhost:3001/api/dispositivos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nombre_dis: nuevoDispositivo })
@@ -72,7 +72,7 @@ const Dispositivos = () => {
     if (!window.confirm(confirmMsg)) return;
 
     try {
-      const response = await fetch(`https://servidor-class-access.vercel.app/api/dispositivos/${id}/estatus`, {
+      const response = await fetch(`http://localhost:3001/api/dispositivos/${id}/estatus`, {
         
         method: "PUT",
         headers: { "Content-Type": "application/json" },

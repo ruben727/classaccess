@@ -12,21 +12,35 @@ const Alumno = () => {
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
 
     if (usuarioGuardado) {
-      setNombre(usuarioGuardado.nombre_usu); // Usa el campo correcto desde tu BD
+      setNombre(usuarioGuardado.nombre_usu);
     } else {
-      // Redirige si no hay sesión activa
       navigate("/");
     }
   }, [navigate]);
 
   return (
     <div className="alumno-container">
-      {/* Sidebar */}
       <MenuAlumno />
       
       <main className="contenido-alumno">
-        <h1>Bienvenido, {nombre}</h1>
-        <p>Selecciona una opción del menú para comenzar.</p>
+        {/* Header de bienvenida */}
+        <div className="welcome-header">
+          <h1>¡Bienvenido, {nombre}! </h1>
+          <p className="subtitle">Selecciona una opción del menú para comenzar.</p>
+        </div>
+
+        {/* Contenedor centrado con imagen */}
+        <div className="main-content-card">
+          <div className="content-center">
+            {/* Aquí va tu imagen - Reemplaza la ruta con tu imagen */}
+            <img 
+              src="/escuela.png" 
+              alt="Dashboard" 
+              className="dashboard-image"
+            />
+            
+          </div>
+        </div>
       </main>
     </div>
   );

@@ -26,7 +26,7 @@ const RegistrarUsuario = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("https://servidor-class-access.vercel.app/registrarUsuario", {
+    fetch("http://localhost:3001/registrarUsuario", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

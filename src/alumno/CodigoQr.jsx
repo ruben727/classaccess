@@ -24,7 +24,7 @@ const Codigo = () => {
 
     const fetchAlumno = async () => {
       try {
-        const response = await axios.get(`https://servidor-class-access.vercel.app/api/alumno/${id_usu}`);
+        const response = await axios.get(`http://localhost:3001/api/alumno/${id_usu}`);
         setAlumno(response.data);
       } catch (err) {
         console.error("Error al obtener alumno:", err);

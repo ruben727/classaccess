@@ -22,7 +22,7 @@ const PerfilMaestro = () => {
   const id_usu = localStorage.getItem("id_usu");
   if (!id_usu) return;
 
-  axios.get(`https://servidor-class-access.vercel.app/api/perfilprof/${id_usu}`)
+  axios.get(`http://localhost:3001/api/perfilprof/${id_usu}`)
     .then((res) => {
       setMaestro(res.data);
       setCargando(false);

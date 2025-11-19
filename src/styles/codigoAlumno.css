@@ -1,10 +1,19 @@
-/* Estilos para el código QR - Alumno */
+/* Estilos para el código QR - Alumno (Mejorado) */
 .titulo-qr {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: #1f2937;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     text-align: center;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.subtitulo-qr {
+    font-size: 1.1rem;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
 }
 
 .contenedor-qr {
@@ -12,123 +21,252 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
     padding: 0 1rem;
 }
 
 .tarjeta-qr {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
-    padding: 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(37, 99, 235, 0.12);
+    padding: 3rem;
     width: 100%;
     text-align: center;
     border: 1px solid #e5e7eb;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.tarjeta-qr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 50px rgba(37, 99, 235, 0.18);
+}
+
+.info-alumno {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: #f0f9ff;
+    border-radius: 12px;
+    border-left: 4px solid #232e56;
 }
 
 .nombre-alumno {
-    font-size: 1.5rem;
-    color: #2563eb;
+    font-size: 1.8rem;
+    color: #232e56;
     margin-bottom: 0.5rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 .matricula {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: #4b5563;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
+    margin-bottom: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.codigo-qr-wrapper {
+    margin: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .codigo-qr-container {
-    margin: 1.5rem auto;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 8px;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 16px;
     display: inline-block;
-    border: 1px solid #e5e7eb;
-    background-color: #f8fafc;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.codigo-qr-container:hover {
+    transform: scale(1.03);
+    border-color: #232e56;
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
 }
 
 .codigo-qr {
     width: 100%;
     height: auto;
     max-width: 256px;
+    border-radius: 8px;
+    display: block;
+}
+
+.etiqueta-qr {
+    display: inline-block;
+    background-color: #232e56;
+    color: white;
+    padding: 0.6rem 1.8rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .instrucciones {
     font-size: 1rem;
-    color: #6b7280;
-    margin-top: 1.5rem;
-    font-style: italic;
-    max-width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    color: #4b5563;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border-left: 4px solid #232e56;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.instrucciones-titulo {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
 }
 
 .cargando-qr {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem;
     color: #6b7280;
     font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .error-qr {
     text-align: center;
-    padding: 2rem;
-    color: #ef4444;
+    padding: 2.5rem;
+    color: #dc2626;
     font-size: 1.2rem;
-    background-color: #fee2e2;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border-radius: 16px;
     max-width: 500px;
     margin: 0 auto;
+    border: 2px solid #fca5a5;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.12);
+    font-weight: 600;
+}
+
+/* Separador decorativo */
+.separador {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    margin: 1.5rem auto;
+    border-radius: 2px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .titulo-qr {
-        font-size: 1.7rem;
-        margin-bottom: 1.2rem;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .subtitulo-qr {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .tarjeta-qr {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+    
+    .info-alumno {
+        padding: 1.2rem;
+    }
+    
+    .nombre-alumno {
+        font-size: 1.5rem;
+    }
+    
+    .matricula {
+        font-size: 1.1rem;
+    }
+    
+    .codigo-qr-container {
+        margin: 1.5rem auto;
+        padding: 1.2rem;
+    }
+
+    .instrucciones {
+        padding: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .titulo-qr {
+        font-size: 1.8rem;
+    }
+    
+    .subtitulo-qr {
+        font-size: 0.95rem;
     }
     
     .tarjeta-qr {
         padding: 1.5rem;
+        border-radius: 12px;
+    }
+    
+    .info-alumno {
+        padding: 1rem;
     }
     
     .nombre-alumno {
         font-size: 1.3rem;
     }
     
-    .codigo-qr-container {
-        margin: 1rem auto;
-    }
-}
-
-@media (max-width: 576px) {
-    .titulo-qr {
-        font-size: 1.5rem;
-    }
-    
-    .tarjeta-qr {
-        padding: 1.2rem;
-        border-radius: 8px;
-    }
-    
-    .nombre-alumno {
-        font-size: 1.2rem;
-    }
-    
     .matricula {
         font-size: 1rem;
+        letter-spacing: 0.5px;
     }
     
     .codigo-qr {
         max-width: 200px;
     }
     
+    .codigo-qr-container {
+        padding: 1rem;
+    }
+    
+    .etiqueta-qr {
+        font-size: 0.85rem;
+        padding: 0.5rem 1.5rem;
+    }
+    
     .instrucciones {
         font-size: 0.9rem;
-        max-width: 90%;
+        padding: 1rem;
+    }
+
+    .instrucciones-titulo {
+        font-size: 1rem;
     }
 }

@@ -19,7 +19,7 @@ const Codigo_QR = () => {
     }
 
     setCargando(true);
-    axios.get(`https://servidor-class-access.vercel.app/api/profesor/${id_usu}`)
+    axios.get(`http://localhost:3001/api/profesor/${id_usu}`)
       .then((res) => {
         setProfesor(res.data);
         setCargando(false);

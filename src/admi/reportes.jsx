@@ -40,7 +40,7 @@ const Reportes = () => {
       if (filtroFecha) params.append("fecha", filtroFecha);
       if (filtroGrupo) params.append("grupo", filtroGrupo);
 
-      const response = await fetch(`https://servidor-class-access.vercel.app/api/asistencias/reportes?${params.toString()}`);
+      const response = await fetch(`http://localhost:3001/api/asistencias/reportes?${params.toString()}`);
       const data = await response.json();
       setAsistencias(data);
     } catch (error) {

@@ -36,7 +36,7 @@ const RegistroAlumno = () => {
   };
 
   const validarPassword = (pwd) => {
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[\]{};:'",.<>?/\\|`~]).{8,}$/;
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+={}[\];:'",.<>?/\\|`~]).{8,}$/;
     return regex.test(pwd);
   };
 
@@ -81,7 +81,7 @@ const RegistroAlumno = () => {
     };
 
     try {
-      const res = await fetch("https://servidor-class-access.vercel.app/registrarUsuario", {
+      const res = await fetch("http://localhost:3001/registrarUsuario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

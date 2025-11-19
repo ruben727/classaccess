@@ -31,7 +31,7 @@ const ListasMaestro = () => {
     setCargando(true);
     setError("");
     
-    fetch(`https://servidor-class-access.vercel.app/api/listas-maestro/${idMaestro}?fecha=${fecha}`)
+    fetch(`http://localhost:3001/api/listas-maestro/${idMaestro}?fecha=${fecha}`)
       .then((res) => {
         if (!res.ok) throw new Error("Error al obtener las clases");
         return res.json();

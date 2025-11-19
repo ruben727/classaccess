@@ -31,7 +31,7 @@ const Aulas = () => {
   };
 
   const obtenerAulas = () => {
-    fetch("https://servidor-class-access.vercel.app/api/aulas")
+    fetch("http://localhost:3001/api/aulas")
       .then(res => res.json())
       .then(data => setAulas(data));
   };

@@ -1,14 +1,13 @@
-/* Estilos base */
 :root {
-  --primary-color: #4a6ef5;
-  --primary-hover: #3b5dd9;
-  --secondary-color: #6c757d;
+  --primary-color: #232e56;
+  --primary-hover: #1a2342;
+  --secondary-color: #64748b;
   --error-color: #dc3545;
   --success-color: #28a745;
-  --light-gray: #f8f9fa;
-  --border-color: #dee2e6;
-  --text-color: #495057;
-  --text-light: #6c757d;
+  --light-gray: #f8fafc;
+  --border-color: #e2e8f0;
+  --text-color: #232e56;
+  --text-light: #64748b;
 }
 
 * {
@@ -23,21 +22,27 @@ body {
   color: var(--text-color);
 }
 
-/* Estructura principal */
 .registro-page {
   display: flex;
   min-height: 100vh;
   width: 100%;
 }
 
+/* CAMBIO CLAVE: Panel Izquierdo fijado */
 .left-panel-registro {
-  flex: 1;
+  /* Ocupa exactamente la mitad del ancho y toda la altura */
+  width: 50%;
+  height: 100vh;
+  position: fixed; /* Mantiene el panel visible aunque se haga scroll */
+  top: 0;
+  left: 0;
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f7ff;
+  background-color: var(--primary-color);
   padding: 2rem;
-  background-image: linear-gradient(135deg, #f5f7ff 0%, #e8ecfe 100%);
+  background-image: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
 }
 
 .right-panel-registro {
@@ -48,20 +53,28 @@ body {
   background-color: #ffffff;
   padding: 2rem;
   overflow-y: auto;
+  
+  /* CAMBIO CLAVE: Mueve el panel derecho a la derecha del panel fijo */
+  margin-left: 50%;
+  width: 50%;
 }
 
-/* Logo */
+
+
 .logo-image-small {
-  max-width: 300px;
+  max-width: 75%;
   height: auto;
-  transition: transform 0.3s ease;
+  max-height: 65vh;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.3));
+  animation: floatAnimation 3s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
 }
-
 .logo-image-small:hover {
   transform: scale(1.05);
 }
 
-/* Contenedor del formulario */
 .form-container-registro {
   width: 100%;
   max-width: 500px;
@@ -75,12 +88,11 @@ body {
 .form-container-registro h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #2c3e50;
+  color: var(--primary-color);
   font-size: 1.8rem;
   font-weight: 600;
 }
 
-/* Grupos de formulario */
 .form-group {
   margin-bottom: 1.5rem;
   position: relative;
@@ -107,7 +119,7 @@ body {
 .form-group input:focus {
   border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(74, 110, 245, 0.2);
+  box-shadow: 0 0 0 3px rgba(35, 46, 86, 0.2);
   background-color: white;
 }
 
@@ -116,7 +128,6 @@ body {
   opacity: 0.7;
 }
 
-/* Botones */
 .button-group {
   display: flex;
   gap: 1rem;
@@ -151,7 +162,7 @@ button[type="submit"]:hover {
 
 button[type="button"] {
   background-color: white;
-  color: var(--secondary-color);
+  color: var(--primary-color);
   border: 1px solid var(--border-color);
 }
 
@@ -160,7 +171,6 @@ button[type="button"]:hover {
   transform: translateY(-2px);
 }
 
-/* Mensajes */
 .mensaje {
   margin-top: 1.5rem;
   padding: 0.8rem;
@@ -182,7 +192,6 @@ button[type="button"]:hover {
   border: 1px solid rgba(40, 167, 69, 0.2);
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -194,10 +203,22 @@ button[type="button"]:hover {
   }
 }
 
-/* Responsive */
+/* RESPONSIVE: Es vital deshacer el position: fixed en móvil/tablet */
 @media (max-width: 992px) {
   .form-container-registro {
     padding: 2rem;
+  }
+  
+  /* Deshacer Fixed en pantallas pequeñas */
+  .left-panel-registro {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  
+  .right-panel-registro {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
@@ -205,20 +226,19 @@ button[type="button"]:hover {
   .registro-page {
     flex-direction: column;
   }
-  
+
   .left-panel-registro {
     padding: 1.5rem;
-    height: auto;
   }
-  
+
   .right-panel-registro {
     padding: 1.5rem;
   }
-  
+
   .logo-image-small {
     max-width: 200px;
   }
-  
+
   .form-container-registro {
     margin-top: 0;
     box-shadow: none;
@@ -229,21 +249,22 @@ button[type="button"]:hover {
   .form-container-registro {
     padding: 1.5rem;
   }
-  
+
   .form-container-registro h2 {
     font-size: 1.5rem;
   }
-  
+
   .button-group {
     flex-direction: column;
     gap: 0.75rem;
   }
-  
+
   button {
     width: 100%;
   }
-  
+
   .form-group input {
     padding: 0.7rem 0.9rem;
   }
 }
+
