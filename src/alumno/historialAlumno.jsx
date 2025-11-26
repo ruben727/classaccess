@@ -24,7 +24,7 @@ const HistorialMaestros = () => {
     if (!id_usu) return;
 
     setCargando(true);
-    axios.get(`http://localhost:3001/api/alumno/historial/${id_usu}`)
+    axios.get(`https://servidor-class-access.vercel.app/api/alumno/historial/${id_usu}`)
       .then((res) => {
         setHistorial(res.data);
         setCargando(false);

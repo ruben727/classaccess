@@ -22,7 +22,7 @@ const Aulas = () => {
   const [editandoId, setEditandoId] = useState(null);
 
   const obtenerDispositivos = () => {
-    fetch("http://localhost:3001/api/dispositivos")
+    fetch("https://servidor-class-access.vercel.app/api/dispositivos")
       .then(res => res.json())
       .then(data => {
         const activos = data.filter(d => d.estatus_dis === 1);
@@ -31,7 +31,7 @@ const Aulas = () => {
   };
 
   const obtenerAulas = () => {
-    fetch("http://localhost:3001/api/aulas")
+    fetch("https://servidor-class-access.vercel.app/api/aulas")
       .then(res => res.json())
       .then(data => setAulas(data));
   };
@@ -74,8 +74,8 @@ const Aulas = () => {
     };
 
     const url = editandoId
-      ? `http://localhost:3001/api/aulas/${editandoId}`
-      : "http://localhost:3001/api/aulas";
+      ? `https://servidor-class-access.vercel.app/api/aulas/${editandoId}`
+      : "https://servidor-class-access.vercel.app/api/aulas";
 
     const metodo = editandoId ? "PUT" : "POST";
 

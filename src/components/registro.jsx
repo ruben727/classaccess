@@ -81,7 +81,7 @@ const RegistroAlumno = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3001/registrarUsuario", {
+      const res = await fetch("https://servidor-class-access.vercel.app/registrarUsuario", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

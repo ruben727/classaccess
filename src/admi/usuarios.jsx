@@ -22,7 +22,7 @@ const Usuarios = () => {
   useEffect(() => {
     const fetchUsuarios = async () => {
       try {
-        const response = await fetch("http://localhost:3001/usuarios");
+        const response = await fetch("https://servidor-class-access.vercel.app/usuarios");
         const data = await response.json();
         
         const combinados = [
@@ -45,7 +45,7 @@ const Usuarios = () => {
 
   const cambiarEstatus = async (id, nuevoEstatus) => {
     try {
-      await fetch(`http://localhost:3001/usuarios/${id}/estatus`, {
+      await fetch(`https://servidor-class-access.vercel.app/usuarios/${id}/estatus`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

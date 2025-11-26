@@ -29,7 +29,7 @@ const NotificacionesAlumno = () => {
 
         const fetchNotificaciones = async () => {
             try {
-                const res = await fetch("http://localhost:3001/notificacionesAlumno", {
+                const res = await fetch("https://servidor-class-access.vercel.app/notificacionesAlumno", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

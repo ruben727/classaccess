@@ -23,7 +23,7 @@ const EnviarNotificaciones = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch("http://localhost:3001/enviarNotificacion", {
+      const response = await fetch("https://servidor-class-access.vercel.app/enviarNotificacion", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

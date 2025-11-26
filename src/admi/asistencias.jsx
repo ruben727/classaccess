@@ -21,7 +21,7 @@ const Asistencias = () => {
   const obtenerAsistencias = async () => {
     try {
       setLoading(true);
-      const url = new URL("http://localhost:3001/api/asistencias");
+      const url = new URL("https://servidor-class-access.vercel.app/api/asistencias");
       if (fecha) url.searchParams.append("fecha", fecha);
       if (busqueda) url.searchParams.append("busqueda", busqueda);
 

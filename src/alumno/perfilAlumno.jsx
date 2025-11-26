@@ -23,7 +23,7 @@ const PerfilAlumno = () => {
 
   const fetchAlumnoData = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/alumno/${id}`);
+      const response = await fetch(`https://servidor-class-access.vercel.app/alumno/${id}`);
       const data = await response.json();
       setUsuario(data);
       setFormData({
@@ -54,7 +54,7 @@ const PerfilAlumno = () => {
     setMessage("");
 
     try {
-      const response = await fetch(`http://localhost:3001/alumno/${usuario.id_usu}`, {
+      const response = await fetch(`https://servidor-class-access.vercel.app/alumno/${usuario.id_usu}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
